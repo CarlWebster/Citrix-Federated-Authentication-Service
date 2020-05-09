@@ -3,4 +3,7 @@
 #http://www.CarlWebster.com
 # Created on March 31, 2019
 
+#Version 1.01 18-May-2019
+#	Fix some typos in the help text and remove some unneeded comments
+
 # Version 1.0 released to the community on May 13, 2019
