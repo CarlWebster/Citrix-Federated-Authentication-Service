@@ -64,7 +64,7 @@
 	The timestamp is in the format of yyyy-MM-dd_HHmm.
 	June 1, 2019 at 6PM is 2019-06-01_1800.
 	
-	Output filename will be ReportName_2019-06-01_1800.docx (or .pdf).
+	Output filename will be ReportName_2019-06-01_1800.<fileextension>.
 	
 	This parameter is disabled by default.
 	This parameter has an alias of ADT.
@@ -390,9 +390,9 @@
 	This script creates a Word, PDF, plain text, or HTML document.
 .NOTES
 	NAME: FAS_Inventory_V1.ps1
-	VERSION: 1.00
+	VERSION: 1.01
 	AUTHOR: Carl Webster and Michael B. Smith
-	LASTEDIT: May 12, 2019
+	LASTEDIT: May 18, 2019
 #>
 
 #endregion
@@ -502,7 +502,9 @@ Param(
 #http://www.CarlWebster.com
 #Created on March 31, 2019
 #
-
+#Version 1.01 18-May-2019
+#	Fix some typos in the help text and remove some unneeded comments
+#
 # Version 1.0 released to the community on May 13, 2019
 #
 #endregion
@@ -4477,13 +4479,6 @@ Function ShowScriptOptions
 
 Function AbortScript
 {
-	<#If($MSWord -or $PDF)
-	{
-		$Script:Word.quit()
-		Write-Verbose "$(Get-Date): System Cleanup"
-		[System.Runtime.Interopservices.Marshal]::ReleaseComObject($Script:Word) | Out-Null
-		Remove-Variable -Name word -Scope Script 4>$Null
-	}#>
 	[gc]::collect() 
 	[gc]::WaitForPendingFinalizers()
 	Write-Verbose "$(Get-Date): Script has been aborted"
