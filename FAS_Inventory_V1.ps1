@@ -62,9 +62,9 @@
 	Adds a date timestamp to the end of the file name.
 	
 	The timestamp is in the format of yyyy-MM-dd_HHmm.
-	June 1, 2019 at 6PM is 2019-06-01_1800.
+	June 1, 2020 at 6PM is 2020-06-01_1800.
 	
-	Output filename will be ReportName_2019-06-01_1800.<fileextension>.
+	Output filename will be ReportName_2020-06-01_1800.<fileextension>.
 	
 	This parameter is disabled by default.
 	This parameter has an alias of ADT.
@@ -284,8 +284,10 @@
 		Carl Webster for the User Name (alias UN).
 		The computer running the script for the AdminAddress.
 .EXAMPLE
-	PS C:\PSScript .\FAS_Inventory_V1.ps1 -MSWord -CompanyName "Sherlock Holmes 
-	Consulting" -CoverPage Exposure -UserName "Dr. Watson"
+	PS C:\PSScript .\FAS_Inventory_V1.ps1 -MSWord 
+	-CompanyName "Sherlock Holmes Consulting" 
+	-CoverPage Exposure 
+	-UserName "Dr. Watson"
 	-CompanyAddress "221B Baker Street, London, England"
 	-CompanyFax "+44 1753 276600"
 	-CompanyPhone "+44 1753 276200"
@@ -298,8 +300,10 @@
 		+44 1753 276600 for the Company Fax.
 		+44 1753 276200 for the Company Phone.
 .EXAMPLE
-	PS C:\PSScript .\FAS_Inventory_V1.ps1 -MSWord -CompanyName "Sherlock Holmes 
-	Consulting" -CoverPage Facet -UserName "Dr. Watson"
+	PS C:\PSScript .\FAS_Inventory_V1.ps1 -MSWord 
+	-CompanyName "Sherlock Holmes Consulting" 
+	-CoverPage Facet 
+	-UserName "Dr. Watson"
 	-CompanyEmail SuperSleuth@SherlockHolmes.com
 
 	Will use:
@@ -313,8 +317,8 @@
 	Creates an HTML file.
 	Adds a date time stamp to the end of the file name.
 	The timestamp is in the format of yyyy-MM-dd_HHmm.
-	June 1, 2019 at 6PM is 2019-06-01_1800.
-	Output filename will be CitrixFASInventory_2019-06-01_1800.html.
+	June 1, 2020 at 6PM is 2020-06-01_1800.
+	Output filename will be CitrixFASInventory_2020-06-01_1800.html.
 .EXAMPLE
 	PS C:\PSScript > .\FAS_Inventory_V1.ps1 -PDF -AddDateTime
 	
@@ -330,36 +334,12 @@
 
 	Adds a date time stamp to the end of the file name.
 	The timestamp is in the format of yyyy-MM-dd_HHmm.
-	June 1, 2019 at 6PM is 2019-06-01_1800.
-	Output filename will be CitrixFASInventory_2019-06-01_1800.pdf.
+	June 1, 2020 at 6PM is 2020-06-01_1800.
+	Output filename will be CitrixFASInventory_2020-06-01_1800.pdf.
 .EXAMPLE
 	PS C:\PSScript > .\FAS_Inventory_V1.ps1 -Folder \\FileServer\ShareName
 	
 	HTML output file will be saved in the path \\FileServer\ShareName
-.EXAMPLE
-	PS C:\PSScript > .\FAS_Inventory_V1.ps1 -SmtpServer mail.domain.tld
-	-From XDAdmin@domain.tld -To ITGroup@domain.tld	
-	
-	Creates an HTML file.
-	
-	The script will use the email server mail.domain.tld, sending from FASAdmin@domain.tld, 
-	sending to ITGroup@domain.tld.
-	
-	The script will use the default SMTP port 25 and will not use SSL.
-	
-	If the current user's credentials are not valid to send email, 
-	the user will be prompted to enter valid credentials.
-.EXAMPLE
-	PS C:\PSScript > .\FAS_Inventory_V1.ps1 -SmtpServer smtp.office365.com -SmtpPort 587
-	-UseSSL -From Webster@CarlWebster.com -To ITGroup@CarlWebster.com	
-	
-	Creates an HTML file.
-	
-	The script will use the email server smtp.office365.com on port 587 using SSL, 
-	sending from webster@carlwebster.com, sending to ITGroup@carlwebster.com.
-	
-	If the current user's credentials are not valid to send email, 
-	the user will be prompted to enter valid credentials.
 .EXAMPLE
 	PS C:\PSScript > .\FAS_Inventory_V1.ps1 -Dev -ScriptInfo -Log
 	
@@ -383,6 +363,95 @@
 	
 	Creates an HTML report.
 	Includes up to the first 25 user certificates.
+.EXAMPLE
+	PS C:\PSScript > .\FAS_Inventory_V1.ps1 
+	-SmtpServer mail.domain.tld
+	-From XDAdmin@domain.tld 
+	-To ITGroup@domain.tld	
+
+	The script will use the email server mail.domain.tld, sending from XDAdmin@domain.tld, 
+	sending to ITGroup@domain.tld.
+
+	The script will use the default SMTP port 25 and will not use SSL.
+
+	If the current user's credentials are not valid to send email, 
+	the user will be prompted to enter valid credentials.
+.EXAMPLE
+	PS C:\PSScript > .\FAS_Inventory_V1.ps1 
+	-SmtpServer mailrelay.domain.tld
+	-From Anonymous@domain.tld 
+	-To ITGroup@domain.tld	
+
+	***SENDING UNAUTHENTICATED EMAIL***
+
+	The script will use the email server mailrelay.domain.tld, sending from 
+	anonymous@domain.tld, sending to ITGroup@domain.tld.
+
+	To send unauthenticated email using an email relay server requires the From email account 
+	to use the name Anonymous.
+
+	The script will use the default SMTP port 25 and will not use SSL.
+	
+	***GMAIL/G SUITE SMTP RELAY***
+	https://support.google.com/a/answer/2956491?hl=en
+	https://support.google.com/a/answer/176600?hl=en
+
+	To send email using a Gmail or g-suite account, you may have to turn ON
+	the "Less secure app access" option on your account.
+	***GMAIL/G SUITE SMTP RELAY***
+
+	The script will generate an anonymous secure password for the anonymous@domain.tld 
+	account.
+.EXAMPLE
+	PS C:\PSScript > .\FAS_Inventory_V1.ps1 
+	-SmtpServer labaddomain-com.mail.protection.outlook.com
+	-UseSSL
+	-From SomeEmailAddress@labaddomain.com 
+	-To ITGroupDL@labaddomain.com	
+
+	***OFFICE 365 Example***
+
+	https://docs.microsoft.com/en-us/exchange/mail-flow-best-practices/how-to-set-up-a-multifunction-device-or-application-to-send-email-using-office-3
+	
+	This uses Option 2 from the above link.
+	
+	***OFFICE 365 Example***
+
+	The script will use the email server labaddomain-com.mail.protection.outlook.com, 
+	sending from SomeEmailAddress@labaddomain.com, sending to ITGroupDL@labaddomain.com.
+
+	The script will use the default SMTP port 25 and will use SSL.
+.EXAMPLE
+	PS C:\PSScript > .\FAS_Inventory_V1.ps1 
+	-SmtpServer smtp.office365.com 
+	-SmtpPort 587
+	-UseSSL 
+	-From Webster@CarlWebster.com 
+	-To ITGroup@CarlWebster.com	
+
+	The script will use the email server smtp.office365.com on port 587 using SSL, 
+	sending from webster@carlwebster.com, sending to ITGroup@carlwebster.com.
+
+	If the current user's credentials are not valid to send email, 
+	the user will be prompted to enter valid credentials.
+.EXAMPLE
+	PS C:\PSScript > .\FAS_Inventory_V1.ps1 
+	-SmtpServer smtp.gmail.com 
+	-SmtpPort 587
+	-UseSSL 
+	-From Webster@CarlWebster.com 
+	-To ITGroup@CarlWebster.com	
+
+	*** NOTE ***
+	To send email using a Gmail or g-suite account, you may have to turn ON
+	the "Less secure app access" option on your account.
+	*** NOTE ***
+	
+	The script will use the email server smtp.gmail.com on port 587 using SSL, 
+	sending from webster@gmail.com, sending to ITGroup@carlwebster.com.
+
+	If the current user's credentials are not valid to send email, 
+	the user will be prompted to enter valid credentials.
 .INPUTS
 	None. You cannot pipe objects to this script.
 .OUTPUTS
@@ -390,9 +459,9 @@
 	This script creates a Word, PDF, plain text, or HTML document.
 .NOTES
 	NAME: FAS_Inventory_V1.ps1
-	VERSION: 1.10
+	VERSION: 1.11
 	AUTHOR: Carl Webster and Michael B. Smith
-	LASTEDIT: February 9, 2020
+	LASTEDIT: May 9, 2020
 #>
 
 #endregion
@@ -502,6 +571,16 @@ Param(
 #http://www.CarlWebster.com
 #Created on March 31, 2019
 #
+#Version 1.11 9-May-2020
+#	Add checking for a Word version of 0, which indicates the Office installation needs repairing
+#	Add Receive Side Scaling setting to Function OutputNICItem
+#	Change color variables $wdColorGray15 and $wdColorGray05 from [long] to [int]
+#	Change location of the -Dev, -Log, and -ScriptInfo output files from the script folder to the -Folder location (Thanks to Guy Leech for the "suggestion")
+#	Update Function SendEmail to handle anonymous unauthenticated email
+#	Update Function SetWordCellFormat to change parameter $BackgroundColor to [int]
+#	Update Functions GetComputerWMIInfo and OutputNicInfo to fix two bugs in NIC Power Management settings
+#	Update Help Text
+#
 #Version 1.10 10-Feb-2020
 #	Added new section for Local Administration Policy
 #	Added new section for Private Key Pool Info
@@ -531,31 +610,6 @@ function wv
 {
 	$s = $args -join ''
 	Write-Verbose $s
-}
-
-If($Log) 
-{
-	#start transcript logging
-	$Script:ThisScriptPath = Split-Path -Parent $MyInvocation.MyCommand.Definition
-	$Script:LogPath = "$Script:ThisScriptPath\FASV1DocScriptTranscript_$(Get-Date -f yyyy-MM-dd_HHmm).txt"
-	
-	try 
-	{
-		Start-Transcript -Path $Script:LogPath -Force -Verbose:$false | Out-Null
-		Write-Verbose "$(Get-Date): Transcript/log started at $Script:LogPath"
-		$Script:StartLog = $true
-	} 
-	catch 
-	{
-		Write-Verbose "$(Get-Date): Transcript/log failed at $Script:LogPath"
-		$Script:StartLog = $false
-	}
-}
-
-If($Dev)
-{
-	$Error.Clear()
-	$Script:DevErrorFile = "$($pwd.Path)\FASV1InventoryScriptErrors_$(Get-Date -f yyyy-MM-dd_HHmm).txt"
 }
 
 If($MSWord -eq $False -and $PDF -eq $False -and $Text -eq $False -and $HTML -eq $False)
@@ -597,10 +651,13 @@ If($Folder -ne "")
 			#it exists but it is a file not a folder
 			Write-Error "
 			`n`n
-			`tFolder $Folder is a file, not a folder.
+			`t`t
+			Folder $Folder is a file, not a folder.
 			`n`n
-			`tScript cannot continue.
-			`n`n"
+			`t`t
+			Script cannot continue.
+			`n`n
+			"
 			AbortScript
 		}
 	}
@@ -609,73 +666,127 @@ If($Folder -ne "")
 		#does not exist
 		Write-Error "
 		`n`n
-		`tFolder $Folder does not exist.
+		`t`t
+		Folder $Folder does not exist.
 		`n`n
-		`tScript cannot continue.
-		`n`n"
+		`t`t
+		Script cannot continue.
+		`n`n
+		"
 		AbortScript
 	}
+}
+
+If($Folder -eq "")
+{
+	$Script:pwdpath = $pwd.Path
+}
+Else
+{
+	$Script:pwdpath = $Folder
+}
+
+If($Script:pwdpath.EndsWith("\"))
+{
+	#remove the trailing \
+	$Script:pwdpath = $Script:pwdpath.SubString(0, ($Script:pwdpath.Length - 1))
+}
+
+If($Log) 
+{
+	#start transcript logging
+	$Script:LogPath = "$Script:pwdpath\FASV1DocScriptTranscript_$(Get-Date -f yyyy-MM-dd_HHmm).txt"
+	
+	try 
+	{
+		Start-Transcript -Path $Script:LogPath -Force -Verbose:$false | Out-Null
+		Write-Verbose "$(Get-Date): Transcript/log started at $Script:LogPath"
+		$Script:StartLog = $true
+	} 
+	catch 
+	{
+		Write-Verbose "$(Get-Date): Transcript/log failed at $Script:LogPath"
+		$Script:StartLog = $false
+	}
+}
+
+If($Dev)
+{
+	$Error.Clear()
+	$Script:DevErrorFile = "$Script:pwdpath\FASV1InventoryScriptErrors_$(Get-Date -f yyyy-MM-dd_HHmm).txt"
 }
 
 If(![String]::IsNullOrEmpty($SmtpServer) -and [String]::IsNullOrEmpty($From) -and [String]::IsNullOrEmpty($To))
 {
 	Write-Error "
 	`n`n
-	`tYou specified an SmtpServer but did not include a From or To email address.
+	`t`t
+	You specified an SmtpServer but did not include a From or To email address.
 	`n`n
-	`tScript cannot continue.
+	`t`t
+	Script cannot continue.
 	`n`n"
-	AbortScript
+	Exit
 }
 If(![String]::IsNullOrEmpty($SmtpServer) -and [String]::IsNullOrEmpty($From) -and ![String]::IsNullOrEmpty($To))
 {
 	Write-Error "
 	`n`n
-	`tYou specified an SmtpServer and a To email address but did not include a From email address.
+	`t`t
+	You specified an SmtpServer and a To email address but did not include a From email address.
 	`n`n
-	`tScript cannot continue.
+	`t`t
+	Script cannot continue.
 	`n`n"
-	AbortScript
+	Exit
 }
 If(![String]::IsNullOrEmpty($SmtpServer) -and [String]::IsNullOrEmpty($To) -and ![String]::IsNullOrEmpty($From))
 {
 	Write-Error "
 	`n`n
-	`tYou specified an SmtpServer and a From email address but did not include a To email address.
+	`t`t
+	You specified an SmtpServer and a From email address but did not include a To email address.
 	`n`n
-	`tScript cannot continue.
+	`t`t
+	Script cannot continue.
 	`n`n"
-	AbortScript
+	Exit
 }
 If(![String]::IsNullOrEmpty($From) -and ![String]::IsNullOrEmpty($To) -and [String]::IsNullOrEmpty($SmtpServer))
 {
 	Write-Error "
 	`n`n
-	`tYou specified From and To email addresses but did not include the SmtpServer.
+	`t`t
+	You specified From and To email addresses but did not include the SmtpServer.
 	`n`n
-	`tScript cannot continue.
+	`t`t
+	Script cannot continue.
 	`n`n"
-	AbortScript
+	Exit
 }
 If(![String]::IsNullOrEmpty($From) -and [String]::IsNullOrEmpty($SmtpServer))
 {
 	Write-Error "
 	`n`n
-	`tYou specified a From email address but did not include the SmtpServer.
+	`t`t
+	You specified a From email address but did not include the SmtpServer.
 	`n`n
-	`tScript cannot continue.
+	`t`t
+	Script cannot continue.
 	`n`n"
-	AbortScript
+	Exit
 }
 If(![String]::IsNullOrEmpty($To) -and [String]::IsNullOrEmpty($SmtpServer))
 {
 	Write-Error "
 	`n`n
-	`tYou specified a To email address but did not include the SmtpServer.
+	`t`t
+	You specified a To email address but did not include the SmtpServer.
 	`n`n
-	`tScript cannot continue.
+	`t`t
+	Script cannot continue.
 	`n`n"
-	AbortScript
+	Exit
 }
 #endregion
 
@@ -688,14 +799,14 @@ If($MSWord -or $PDF)
 	#http://groovy.codehaus.org/modules/scriptom/1.6.0/scriptom-office-2K3-tlb/apidocs/
 	#http://msdn.microsoft.com/en-us/library/office/aa211923(v=office.11).aspx
 	[int]$wdAlignPageNumberRight = 2
-	[long]$wdColorGray15 = 14277081
-	#[long]$wdColorGray05 = 15987699 
+	[int]$wdColorGray15 = 14277081
+	[int]$wdColorGray05 = 15987699 
 	[int]$wdMove = 0
 	[int]$wdSeekMainDocument = 0
 	[int]$wdSeekPrimaryFooter = 4
 	[int]$wdStory = 6
 	[int]$wdColorRed = 255
-	#[int]$wdColorBlack = 0
+	[int]$wdColorBlack = 0
 	[int]$wdWord2007 = 12
 	[int]$wdWord2010 = 14
 	[int]$wdWord2013 = 15
@@ -1557,59 +1668,69 @@ Function OutputProcessorItem
 
 Function OutputNicItem
 {
-	Param([object]$Nic, [object]$ThisNic, [string] $ComputerName)
+	Param([object]$Nic, [object]$ThisNic, [string]$RemoteComputerName)
 	
-	If(validObject $ThisNic PowerManagementSupported)
-	{
-		$powerMgmt = $ThisNic.PowerManagementSupported
-	}
-	
-	If($powerMgmt)
-	{
-		$powerMgmt = Get-WmiObject -ComputerName MSPower_DeviceEnable -Namespace root\wmi | Where-Object {$_.InstanceName -match [regex]::Escape($ThisNic.PNPDeviceID)}
+	$powerMgmt = Get-WmiObject -computername $RemoteComputerName MSPower_DeviceEnable -Namespace root\wmi | Where-Object{$_.InstanceName -match [regex]::Escape($ThisNic.PNPDeviceID)}
 
-		If($? -and $Null -ne $powerMgmt)
+	If($? -and $Null -ne $powerMgmt)
+	{
+		If($powerMgmt.Enable -eq $True)
 		{
-			If($powerMgmt.Enable -eq $True)
-			{
-				$PowerSaving = "Enabled"
-			}
-			Else
-			{
-				$PowerSaving = "Disabled"
-			}
+			$PowerSaving = "Enabled"
 		}
 		Else
 		{
-			$PowerSaving = "N/A"
+			$PowerSaving = "Disabled"
 		}
 	}
 	Else
 	{
-		$PowerSaving = "Not Supported"
+        $PowerSaving = "N/A"
 	}
 	
 	$xAvailability = ""
-	Switch ($processor.availability)
+	Switch ($ThisNic.availability)
 	{
-		1	{$xAvailability = "Other"; Break}
-		2	{$xAvailability = "Unknown"; Break}
-		3	{$xAvailability = "Running or Full Power"; Break}
-		4	{$xAvailability = "Warning"; Break}
-		5	{$xAvailability = "In Test"; Break}
-		6	{$xAvailability = "Not Applicable"; Break}
-		7	{$xAvailability = "Power Off"; Break}
-		8	{$xAvailability = "Off Line"; Break}
-		9	{$xAvailability = "Off Duty"; Break}
-		10	{$xAvailability = "Degraded"; Break}
-		11	{$xAvailability = "Not Installed"; Break}
-		12	{$xAvailability = "Install Error"; Break}
-		13	{$xAvailability = "Power Save - Unknown"; Break}
-		14	{$xAvailability = "Power Save - Low Power Mode"; Break}
-		15	{$xAvailability = "Power Save - Standby"; Break}
-		16	{$xAvailability = "Power Cycle"; Break}
-		17	{$xAvailability = "Power Save - Warning"; Break}
+		1		{$xAvailability = "Other"; Break}
+		2		{$xAvailability = "Unknown"; Break}
+		3		{$xAvailability = "Running or Full Power"; Break}
+		4		{$xAvailability = "Warning"; Break}
+		5		{$xAvailability = "In Test"; Break}
+		6		{$xAvailability = "Not Applicable"; Break}
+		7		{$xAvailability = "Power Off"; Break}
+		8		{$xAvailability = "Off Line"; Break}
+		9		{$xAvailability = "Off Duty"; Break}
+		10		{$xAvailability = "Degraded"; Break}
+		11		{$xAvailability = "Not Installed"; Break}
+		12		{$xAvailability = "Install Error"; Break}
+		13		{$xAvailability = "Power Save - Unknown"; Break}
+		14		{$xAvailability = "Power Save - Low Power Mode"; Break}
+		15		{$xAvailability = "Power Save - Standby"; Break}
+		16		{$xAvailability = "Power Cycle"; Break}
+		17		{$xAvailability = "Power Save - Warning"; Break}
 		Default	{$xAvailability = "Unknown"; Break}
+	}
+
+	#attempt to get Receive Side Scaling setting
+	$RSSEnabled = "N/A"
+	Try
+	{
+		#https://ios.developreference.com/article/10085450/How+do+I+enable+VRSS+(Virtual+Receive+Side+Scaling)+for+a+Windows+VM+without+relying+on+Enable-NetAdapterRSS%3F
+		$RSSEnabled = (Get-WmiObject -ComputerName $RemoteComputerName MSFT_NetAdapterRssSettingData -Namespace "root\StandardCimV2" -ea 0).Enabled
+
+		If($RSSEnabled)
+		{
+			$RSSEnabled = "Enabled"
+		}
+		ELse
+		{
+			$RSSEnabled = "Disabled"
+		}
+	}
+	
+	Catch
+	{
+		$RSSEnabled = "Not available on $Script:RunningOS"
 	}
 
 	$xIPAddress = New-Object System.Collections.ArrayList
@@ -1688,6 +1809,7 @@ Function OutputNicItem
 		}
 		$NicInformation.Add(@{ Data = "Availability"; Value = $xAvailability; }) > $Null
 		$NicInformation.Add(@{ Data = "Allow the computer to turn off this device to save power"; Value = $PowerSaving; }) > $Null
+		$NicInformation.Add(@{ Data = "Receive Side Scaling"; Value = $RSSEnabled; }) > $Null
 		$NicInformation.Add(@{ Data = "Physical Address"; Value = $Nic.macaddress; }) > $Null
 		If($xIPAddress.Count -gt 1)
 		{
@@ -1799,6 +1921,7 @@ Function OutputNicItem
 		Line 2 "Availability`t`t: " $xAvailability
 		Line 2 "Allow computer to turn "
 		Line 2 "off device to save power: " $PowerSaving
+		Line 2 "Receive Side Scaling`t: " $RSSEnabled
 		Line 2 "Physical Address`t: " $nic.macaddress
 		Line 2 "IP Address`t`t: " $xIPAddress[0]
 		$cnt = -1
@@ -1899,6 +2022,7 @@ Function OutputNicItem
 		}
 		$rowdata += @(,('Availability',($htmlsilver -bor $htmlBold),$xAvailability,$htmlwhite))
 		$rowdata += @(,('Allow the computer to turn off this device to save power',($htmlsilver -bor $htmlBold),$PowerSaving,$htmlwhite))
+		$rowdata += @(,('Receive Side Scaling',($htmlsilver -bor $htmlbold),$RSSEnabled,$htmlwhite))
 		$rowdata += @(,('Physical Address',($htmlsilver -bor $htmlBold),$Nic.macaddress,$htmlwhite))
 		$rowdata += @(,('IP Address',($htmlsilver -bor $htmlBold),$xIPAddress[0],$htmlwhite))
 		$cnt = -1
@@ -2519,10 +2643,13 @@ Function SetupWord
 		Write-Warning "The Word object could not be created. You may need to repair your Word installation."
 		Write-Error "
 		`n`n
-		`tThe Word object could not be created. You may need to repair your Word installation.
+		`t`t
+		The Word object could not be created. You may need to repair your Word installation.
 		`n`n
-		`tScript cannot continue.
-		`n`n"
+		`t`t
+		Script cannot continue.
+		`n`n
+		"
 		AbortScript
 	}
 
@@ -2540,10 +2667,13 @@ Function SetupWord
 	{
 		Write-Error "
 		`n`n
-		`tUnable to determine the Word language value. You may need to repair your Word installation.
+		`t`t
+		Unable to determine the Word language value. You may need to repair your Word installation.
 		`n`n
-		`tScript cannot continue.
-		`n`n"
+		`t`t
+		Script cannot continue.
+		`n`n
+		"
 		AbortScript
 	}
 	Write-Verbose "$(Get-Date): Word language value is $($Script:WordLanguageValue)"
@@ -2569,18 +2699,42 @@ Function SetupWord
 	{
 		Write-Error "
 		`n`n
-		`t`tMicrosoft Word 2007 is no longer supported.`n`n`t`tScript will end.
-		`n`n"
+		`t`t
+		Microsoft Word 2007 is no longer supported.
+		`n`n
+		`t`t
+		Script will end.
+		`n`n
+		"
 		AbortScript
+	}
+	ElseIf($Script:WordVersion -eq 0)
+	{
+		Write-Error "
+		`n`n
+		`t`t
+		The Word Version is 0. You should run a full online repair of your Office installation.
+		`n`n
+		`t`t
+		Script cannot continue.
+		`n`n
+		"
+		Exit
 	}
 	Else
 	{
 		Write-Error "
 		`n`n
-		`t`tYou are running an untested or unsupported version of Microsoft Word.
+		`t`t
+		You are running an untested or unsupported version of Microsoft Word.
 		`n`n
-		`t`tScript will end.`n`n`t`tPlease send info on your version of Word to webster@carlwebster.com
-		`n`n"
+		`t`t
+		Script will end.
+		`n`n
+		`t`t
+		Please send info on your version of Word to webster@carlwebster.com
+		`n`n
+		"
 		AbortScript
 	}
 
@@ -2735,10 +2889,13 @@ Function SetupWord
 		Write-Verbose "$(Get-Date): Culture code $($Script:WordCultureCode)"
 		Write-Error "
 		`n`n
-		`tFor $($Script:WordProduct), $($CoverPage) is not a valid Cover Page option.
+		`t`t
+		For $($Script:WordProduct), $($CoverPage) is not a valid Cover Page option.
 		`n`n
-		`tScript cannot continue.
-		`n`n"
+		`t`t
+		Script cannot continue.
+		`n`n
+		"
 		AbortScript
 	}
 
@@ -2800,10 +2957,13 @@ Function SetupWord
 		Write-Verbose "$(Get-Date): "
 		Write-Error "
 		`n`n
-		`tAn empty Word document could not be created. You may need to repair your Word installation.
+		`t`t
+		An empty Word document could not be created. You may need to repair your Word installation.
 		`n`n
-		`tScript cannot continue.
-		`n`n"
+		`t`t
+		Script cannot continue.
+		`n`n
+		"
 		AbortScript
 	}
 
@@ -2813,10 +2973,13 @@ Function SetupWord
 		Write-Verbose "$(Get-Date): "
 		Write-Error "
 		`n`n
-		`tAn unknown error happened selecting the entire Word document for default formatting options.
+		`t`t
+		An unknown error happened selecting the entire Word document for default formatting options.
 		`n`n
-		`tScript cannot continue.
-		`n`n"
+		`t`t
+		Script cannot continue.
+		`n`n
+		"
 		AbortScript
 	}
 
@@ -4002,7 +4165,7 @@ Function SetWordCellFormat
 		# Font size
 		[Parameter()] [ValidateNotNullOrEmpty()] [int] $Size = 0,
 		# Cell background color
-		[Parameter()] [AllowNull()] $BackgroundColor = $Null,
+		[Parameter()] [AllowNull()] [int]$BackgroundColor = $Null,
 		# Force solid background color
 		[Switch] $Solid,
 		[Switch] $Bold,
@@ -4285,21 +4448,6 @@ Function SetFilenames
 {
 	Param([string]$OutputFileName)
 	
-	If($Folder -eq "")
-	{
-		$Script:pwdpath = $pwd.Path
-	}
-	Else
-	{
-		$Script:pwdpath = $Folder
-	}
-
-	If($Script:pwdpath.EndsWith("\"))
-	{
-		#remove the trailing \
-		$Script:pwdpath = $Script:pwdpath.SubString(0, ($Script:pwdpath.Length - 1))
-	}
-
 	If($MSWord -or $PDF)
 	{
 		CheckWordPreReq
@@ -4931,15 +5079,16 @@ function ConvertFrom-Sddl-MBS
 #region email function
 Function SendEmail
 {
-	Param([string]$Attachments)
+	Param([array]$Attachments)
 	Write-Verbose "$(Get-Date): Prepare to email"
-	
+
 	$emailAttachment = $Attachments
 	$emailSubject = $Script:Title
 	$emailBody = @"
 Hello, <br />
 <br />
 $Script:Title is attached.
+
 "@ 
 
 	If($Dev)
@@ -4948,71 +5097,104 @@ $Script:Title is attached.
 	}
 
 	$error.Clear()
-
-	If($UseSSL)
+	
+	If($From -Like "anonymous@*")
 	{
-		Write-Verbose "$(Get-Date): Trying to send email using current user's credentials with SSL"
-		Send-MailMessage -Attachments $emailAttachment -Body $emailBody -BodyAsHtml -From $From `
-		-Port $SmtpPort -SmtpServer $SmtpServer -Subject $emailSubject -To $To `
-		-UseSSL *>$Null
-	}
-	Else
-	{
-		Write-Verbose  "$(Get-Date): Trying to send email using current user's credentials without SSL"
-		Send-MailMessage -Attachments $emailAttachment -Body $emailBody -BodyAsHtml -From $From `
-		-Port $SmtpPort -SmtpServer $SmtpServer -Subject $emailSubject -To $To *>$Null
-	}
+		#https://serverfault.com/questions/543052/sending-unauthenticated-mail-through-ms-exchange-with-powershell-windows-server
+		$anonUsername = "anonymous"
+		$anonPassword = ConvertTo-SecureString -String "anonymous" -AsPlainText -Force
+		$anonCredentials = New-Object System.Management.Automation.PSCredential($anonUsername,$anonPassword)
 
-	If(!$?)
-	{
-		$e = $error[0]
-
-		If(($null -ne $e.Exception -and $e.Exception.ToString().Contains("5.7.57")))
+		If($UseSSL)
 		{
-			#The server response was: 5.7.57 SMTP; Client was not authenticated to send anonymous mail during MAIL FROM
-			Write-Verbose "$(Get-Date): Current user's credentials failed. Ask for usable credentials."
-
-			If($Dev)
-			{
-				Out-File -FilePath $Script:DevErrorFile -InputObject $error -Append 4>$Null
-			}
-
-			$error.Clear()
-
-			If($Null -eq $Script:emailCredentials)
-			{
-				$Script:emailCredentials = Get-Credential -Message "Enter the email account and password to send email"
-			}
-
-			If($UseSSL)
-			{
-				Send-MailMessage -Attachments $emailAttachment -Body $emailBody -BodyAsHtml -From $From `
-				-Port $SmtpPort -SmtpServer $SmtpServer -Subject $emailSubject -To $To `
-				-UseSSL -credential $Script:emailCredentials *>$Null 
-			}
-			Else
-			{
-				Send-MailMessage -Attachments $emailAttachment -Body $emailBody -BodyAsHtml -From $From `
-				-Port $SmtpPort -SmtpServer $SmtpServer -Subject $emailSubject -To $To `
-				-credential $Script:emailCredentials *>$Null 
-			}
-
-			If($?)
-			{
-				Write-Verbose "$(Get-Date): Email successfully sent using new credentials"
-			}
-			ElseIf(!$?)
-			{
-				$e = $error[0]
-
-				Write-Verbose "$(Get-Date): Email was not sent:"
-				Write-Warning "$(Get-Date): Exception: $e.Exception" 
-			}
+			Send-MailMessage -Attachments $emailAttachment -Body $emailBody -BodyAsHtml -From $From `
+			-Port $SmtpPort -SmtpServer $SmtpServer -Subject $emailSubject -To $To `
+			-UseSSL -credential $anonCredentials *>$Null 
 		}
 		Else
 		{
+			Send-MailMessage -Attachments $emailAttachment -Body $emailBody -BodyAsHtml -From $From `
+			-Port $SmtpPort -SmtpServer $SmtpServer -Subject $emailSubject -To $To `
+			-credential $anonCredentials *>$Null 
+		}
+		
+		If($?)
+		{
+			Write-Verbose "$(Get-Date): Email successfully sent using anonymous credentials"
+		}
+		ElseIf(!$?)
+		{
+			$e = $error[0]
+
 			Write-Verbose "$(Get-Date): Email was not sent:"
 			Write-Warning "$(Get-Date): Exception: $e.Exception" 
+		}
+	}
+	Else
+	{
+		If($UseSSL)
+		{
+			Write-Verbose "$(Get-Date): Trying to send email using current user's credentials with SSL"
+			Send-MailMessage -Attachments $emailAttachment -Body $emailBody -BodyAsHtml -From $From `
+			-Port $SmtpPort -SmtpServer $SmtpServer -Subject $emailSubject -To $To `
+			-UseSSL *>$Null
+		}
+		Else
+		{
+			Write-Verbose  "$(Get-Date): Trying to send email using current user's credentials without SSL"
+			Send-MailMessage -Attachments $emailAttachment -Body $emailBody -BodyAsHtml -From $From `
+			-Port $SmtpPort -SmtpServer $SmtpServer -Subject $emailSubject -To $To *>$Null
+		}
+
+		If(!$?)
+		{
+			$e = $error[0]
+			
+			#error 5.7.57 is O365 and error 5.7.0 is gmail
+			If($null -ne $e.Exception -and $e.Exception.ToString().Contains("5.7"))
+			{
+				#The server response was: 5.7.xx SMTP; Client was not authenticated to send anonymous mail during MAIL FROM
+				Write-Verbose "$(Get-Date): Current user's credentials failed. Ask for usable credentials."
+
+				If($Dev)
+				{
+					Out-File -FilePath $Script:DevErrorFile -InputObject $error -Append 4>$Null
+				}
+
+				$error.Clear()
+
+				$emailCredentials = Get-Credential -UserName $From -Message "Enter the password to send email"
+
+				If($UseSSL)
+				{
+					Send-MailMessage -Attachments $emailAttachment -Body $emailBody -BodyAsHtml -From $From `
+					-Port $SmtpPort -SmtpServer $SmtpServer -Subject $emailSubject -To $To `
+					-UseSSL -credential $emailCredentials *>$Null 
+				}
+				Else
+				{
+					Send-MailMessage -Attachments $emailAttachment -Body $emailBody -BodyAsHtml -From $From `
+					-Port $SmtpPort -SmtpServer $SmtpServer -Subject $emailSubject -To $To `
+					-credential $emailCredentials *>$Null 
+				}
+
+				If($?)
+				{
+					Write-Verbose "$(Get-Date): Email successfully sent using new credentials"
+				}
+				ElseIf(!$?)
+				{
+					$e = $error[0]
+
+					Write-Verbose "$(Get-Date): Email was not sent:"
+					Write-Warning "$(Get-Date): Exception: $e.Exception" 
+				}
+			}
+			Else
+			{
+				Write-Verbose "$(Get-Date): Email was not sent:"
+				Write-Warning "$(Get-Date): Exception: $e.Exception" 
+			}
 		}
 	}
 }
@@ -5045,14 +5227,14 @@ Function CheckElevation
 	{
 		#abort script
 		Write-Error "
-		`n
-		`n
-		`tThe Citrix FAS PowerShell cmdlets require an elevated PowerShell session.
-		`n
-		`n
-		`tRerun the script from an elevated PowerShell session. The script will now close.
-		`n
-		`n"
+		`n`n
+		`t`t
+		The Citrix FAS PowerShell cmdlets require an elevated PowerShell session.
+		`n`n
+		`t`t
+		Rerun the script from an elevated PowerShell session. The script will now close.
+		`n`n
+		"
 		Write-Verbose "$(Get-Date): "
 		AbortScript
 	}
@@ -5068,11 +5250,23 @@ Function ProcessScriptSetup
 
 	{
 		#We're missing Citrix Snapins that we need
-		Write-Error "`nMissing Citrix PowerShell Snap-ins Detected, check the console above for more information. 
-		`nAre you sure you are running this script against a XenDesktop 7.8 or later Controller? 
-		`n`nIf you are running the script remotely, did you install Studio or the PowerShell snapins on $($env:computername)?
-		`n`nPlease see the Prerequisites section in the ReadMe file (https://carlwebster.sharefile.com/d-s8e92231489542428).
-		`n`nScript will now close."
+		Write-Error "
+		`n`n
+		`t`t
+		Missing Citrix PowerShell Snap-ins Detected, check the console above for more information. 
+		`n`n
+		`t`t
+		Are you sure you are running this script against a Citrix FAS Server? 
+		`n`n
+		`t`t
+		If you are running the script remotely, did you install Studio or the PowerShell snapins on $($env:computername)?
+		`n`n
+		`t`t
+		Please see the Prerequisites section in the ReadMe file (https://carlwebster.sharefile.com/d-s8e92231489542428).
+		`n`n
+		`t`t
+		Script will now close.
+		"
 		AbortScript
 	}
 	
@@ -5119,7 +5313,7 @@ Function ProcessScriptEnd
 
 	If($ScriptInfo)
 	{
-		$SIFile = "$($pwd.Path)\FASV1InventoryScriptInfo_$(Get-Date -f yyyy-MM-dd_HHmm).txt"
+		$SIFile = "$Script:pwdpath\FASV1InventoryScriptInfo_$(Get-Date -f yyyy-MM-dd_HHmm).txt"
 		Out-File -FilePath $SIFile -InputObject "" 4>$Null
 		Out-File -FilePath $SIFile -Append -InputObject "Add DateTime         : $($AddDateTime)" 4>$Null
 		Out-File -FilePath $SIFile -Append -InputObject "Citrix Templates Only: $($AddDateTime)" 4>$Null
@@ -5224,14 +5418,14 @@ Function ProcessRootCA
 	If(!($?) -or ($Null -eq $CA))
 	{
 		Write-Error "
-		`n
-		`n
-		`tUnable to retrieve the Certificate Authority data from FAS.
-		`n
-		`n
-		`tThe script will now close.
-		`n
-		`n"
+		`n`n
+		`t`t
+		Unable to retrieve the Certificate Authority data from FAS.
+		`n`n
+		`t`t
+		The script will now close.
+		`n`n
+		"
 		Write-Verbose "$(Get-Date): "
 		
 		If(($MSWORD -or $PDF) -and ($Script:CoverPagesExist))
@@ -5681,14 +5875,14 @@ Function ProcessFASServer
 	If(!$? -or $null -eq $results)
 	{
 		Write-Error "
-		`n
-		`n
-		`tUnable to retrieve the FAS server.
-		`n
-		`n
-		`tThe script cannot run without FAS server data. The script will now close.
-		`n
-		`n"
+		`n`n
+		`t`t
+		Unable to retrieve the FAS server.
+		`n`n
+		`t`t
+		The script cannot run without FAS server data. The script will now close.
+		`n`n
+		"
 		Write-Verbose "$(Get-Date): "
 		If(($MSWORD -or $PDF) -and ($Script:CoverPagesExist))
 		{
