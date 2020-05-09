@@ -3,6 +3,17 @@
 #http://www.CarlWebster.com
 # Created on March 31, 2019
 
+#Version 1.10 10-Feb-2020
+#	Added new section for Local Administration Policy
+#	Added new section for Private Key Pool Info
+#	Added to FAS Server Information, the Capabilities property
+#	Fixed several alignment issues in the Text output option
+#	Fixed Swedish Table of Contents (Thanks to Johan Kallio)
+#		From 
+#			'sv-'	{ 'Automatisk innehållsförteckning2'; Break }
+#		To
+#			'sv-'	{ 'Automatisk innehållsförteckn2'; Break }
+
 #Version 1.01 18-May-2019
 #	Fix some typos in the help text and remove some unneeded comments
 

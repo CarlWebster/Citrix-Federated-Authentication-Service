@@ -390,9 +390,9 @@
 	This script creates a Word, PDF, plain text, or HTML document.
 .NOTES
 	NAME: FAS_Inventory_V1.ps1
-	VERSION: 1.01
+	VERSION: 1.10
 	AUTHOR: Carl Webster and Michael B. Smith
-	LASTEDIT: May 18, 2019
+	LASTEDIT: February 9, 2020
 #>
 
 #endregion
@@ -501,6 +501,17 @@ Param(
 #@carlwebster on Twitter
 #http://www.CarlWebster.com
 #Created on March 31, 2019
+#
+#Version 1.10 10-Feb-2020
+#	Added new section for Local Administration Policy
+#	Added new section for Private Key Pool Info
+#	Added to FAS Server Information, the Capabilities property
+#	Fixed several alignment issues in the Text output option
+#	Fixed Swedish Table of Contents (Thanks to Johan Kallio)
+#		From 
+#			'sv-'	{ 'Automatisk innehållsförteckning2'; Break }
+#		To
+#			'sv-'	{ 'Automatisk innehållsförteckn2'; Break }
 #
 #Version 1.01 18-May-2019
 #	Fix some typos in the help text and remove some unneeded comments
@@ -2020,7 +2031,8 @@ Function SetWordHashTable
 			'nb-'	{ 'Automatisk tabell 2'; Break }
 			'nl-'	{ 'Automatische inhoudsopgave 2'; Break }
 			'pt-'	{ 'Sumário Automático 2'; Break }
-			'sv-'	{ 'Automatisk innehållsförteckning2'; Break }
+			# fix in 1.90 thanks to Johan Kallio 'sv-'	{ 'Automatisk innehållsförteckning2'; Break }
+			'sv-'	{ 'Automatisk innehållsförteckn2'; Break }
 			'zh-'	{ '自动目录 2'; Break }
 		}
 	)
@@ -5192,6 +5204,12 @@ Function ProcessScriptEnd
 		}
 	}
 	
+	Write-Host "                                                                                    " -BackgroundColor Black -ForegroundColor White
+	Write-Host "               This FREE script was brought to you by Conversant Group              " -BackgroundColor Black -ForegroundColor White
+	Write-Host "We design, build, and manage infrastructure for a secure, dependable user experience" -BackgroundColor Black -ForegroundColor White
+	Write-Host "                       Visit our website conversantgroup.com                        " -BackgroundColor Black -ForegroundColor White
+	Write-Host "                                                                                    " -BackgroundColor Black -ForegroundColor White
+
 	#cleanup obj variables
 	$Script:Output = $Null
 }
@@ -5701,6 +5719,7 @@ Function ProcessFASServer
 			FASVersion          = $FASVersion
 			MaintenanceMode     = $result.MaintenanceMode
 			AdministrationACL   = $result.AdministrationACL
+			Capabilities        = $result.Capabilities
 			ACLOwner            = $SDDL.Owner
 			ACLGroup            = $SDDL.Group
 			ACLControlFlags     = $SDDL.ControlFlags
@@ -5762,6 +5781,8 @@ Function OutputFASServer
 			WriteHTMLLine 2 0 "FAS Server " $item.Address
 		}
 		
+		$Capabilities = $item.Capabilities.Split(",")
+		
 		If($MSWord -or $PDF)
 		{
 			$ScriptInformation.Add(@{Data = "FAS Address"; Value = $item.Address; }) > $Null
@@ -5774,6 +5795,21 @@ Function OutputFASServer
 			$ScriptInformation.Add(@{Data = '     ACL Group'; Value = $item.ACLGroup; }) > $Null
 			$ScriptInformation.Add(@{Data = '     ACL Control Flags'; Value = $item.ACLControlFlags; }) > $Null
 			$ScriptInformation.Add(@{Data = '     Discretionary ACL'; Value = $item.ACLDiscretionaryACL; }) > $Null
+			
+			$cnt = -1
+			ForEach($Capability in $Capabilities)
+			{
+				$cnt++
+				
+				If($cnt -eq 0)
+				{
+					$ScriptInformation.Add(@{Data = 'Capabilities'; Value = $Capability; }) > $Null
+				}
+				Else
+				{
+					$ScriptInformation.Add(@{Data = ''; Value = $Capability; }) > $Null
+				}
+			}
 
 			$Table = AddWordTable -Hashtable $ScriptInformation `
 			-Columns Data,Value `
@@ -5802,8 +5838,23 @@ Function OutputFASServer
 			Line 1 "Administration ACL`t: " 
 			Line 2 "ACL Owner`t`t: " $item.ACLOwner
 			Line 2 "ACL Group`t`t: " $item.ACLGroup
-			Line 2 "ACL Control Flags: " $item.ACLControlFlags
+			Line 2 "ACL Control Flags`t: " $item.ACLControlFlags
 			Line 2 "Discretionary ACL`t: " $item.ACLDiscretionaryACL
+
+			$cnt = -1
+			ForEach($Capability in $Capabilities)
+			{
+				$cnt++
+				
+				If($cnt -eq 0)
+				{
+					Line 1 "Capabilities`t`t: " $Capability
+				}
+				Else
+				{
+					Line 4 ": " $Capability
+				}
+			}
 			Line 0 ""
 		}
 		If($HTML)
@@ -5818,6 +5869,21 @@ Function OutputFASServer
 			$rowdata += @(,('     ACL Group',($Script:htmlsb),$item.ACLGroup,$htmlwhite))
 			$rowdata += @(,('     ACL Control Flags',($Script:htmlsb),$item.ACLControlFlags,$htmlwhite))
 			$rowdata += @(,('     Discretionary ACL',($Script:htmlsb),$item.ACLDiscretionaryACL,$htmlwhite))
+			
+			$cnt = -1
+			ForEach($Capability in $Capabilities)
+			{
+				$cnt++
+				
+				If($cnt -eq 0)
+				{
+					$rowdata += @(,('Capabilities',($Script:htmlsb),$Capability,$htmlwhite))
+				}
+				Else
+				{
+					$rowdata += @(,('',($Script:htmlsb),$Capability,$htmlwhite))
+				}
+			}
 
 			$msg = ""
 			$columnWidths = @("150","400")
@@ -5828,6 +5894,160 @@ Function OutputFASServer
 		If($Hardware)
 		{
 			GetComputerWMIInfo $item.Address
+		}
+	}
+}
+#endregion
+
+#region process local admin policy
+Function ProcessLocalAdminPolicy
+{
+	$results = Get-FasAdministrationPolicy -EA 0
+	
+	If(!($?))
+	{
+		#error
+		Write-Warning "$(Get-Date): Error retrieving FAS Local Admin Policy"
+	}
+	ElseIf($? -and $Null -eq $results)
+	{
+		#nothing returned
+		Write-Warning "$(Get-Date): Warning. No FAS Local Admin Policy was found"
+	}
+	ElseIf($? -and $Null -ne $results)
+	{
+		If($MSWord -or $PDF)
+		{
+			$Script:Selection.InsertNewPage()
+			WriteWordLine 1 0 "FAS Local Administration Policy "
+			WriteWordLine 2 0 "FAS Local Administration Policy "
+			$ScriptInformation = New-Object System.Collections.ArrayList
+		}
+		If($Text)
+		{
+			Line 0 "FAS Local Administration Policy "
+		}
+		If($HTML)
+		{
+			WriteHTMLLine 1 0 "FAS Local Administration Policy "
+			WriteHTMLLine 2 0 "FAS Local Administration Policy "
+			$rowdata = @()
+		}
+
+		If($MSWord -or $PDF)
+		{
+			$ScriptInformation.Add(@{Data = "Default to local host"; Value = $results.DefaultToLocalhost; }) > $Null
+			$ScriptInformation.Add(@{Data = 'Check address against GPO'; Value = $results.CheckAddressAgainstGpo; }) > $Null
+
+			$Table = AddWordTable -Hashtable $ScriptInformation `
+			-Columns Data,Value `
+			-List `
+			-Format $wdTableGrid `
+			-AutoFit $wdAutoFitFixed;
+
+			SetWordCellFormat -Collection $Table.Columns.Item(1).Cells -Bold -BackgroundColor $wdColorGray15;
+
+			$Table.Columns.Item(1).Width = 150;
+			$Table.Columns.Item(2).Width = 150;
+
+			$Table.Rows.SetLeftIndent($Indent0TabStops,$wdAdjustProportional)
+
+			FindWordDocumentEnd
+			$Table = $Null
+			WriteWordLine 0 0 ""
+		}
+		If($Text)
+		{
+			Line 1 "Default to local host`t : " $results.DefaultToLocalhost
+			Line 1 "Check address against GPO: " $results.CheckAddressAgainstGpo
+			Line 0 ""
+		}
+		If($HTML)
+		{
+			$columnHeaders = @("Default to local host",($Script:htmlsb),$results.DefaultToLocalhost.ToString(),$htmlwhite)
+			$rowdata += @(,('Check address against GPO',($Script:htmlsb),$results.CheckAddressAgainstGpo.ToString(),$htmlwhite))
+
+			$msg = ""
+			$columnWidths = @("150","150")
+			FormatHTMLTable $msg "auto" -rowArray $rowdata -columnArray $columnHeaders -fixedWidth $columnWidths
+			WriteHTMLLine 0 0 ""
+		}
+	}
+}
+#endregion
+
+#region process Private Key Pool Info
+Function ProcessPrivateKeyPoolInfo
+{
+	$results = Get-FasPrivateKeyPoolInfo -EA 0
+	
+	If(!($?))
+	{
+		#error
+		Write-Warning "$(Get-Date): Error retrieving FAS Private Key Pool Info"
+	}
+	ElseIf($? -and $Null -eq $results)
+	{
+		#nothing returned
+		Write-Warning "$(Get-Date): Warning. No FAS Private Key Pool Info was found"
+	}
+	ElseIf($? -and $Null -ne $results)
+	{
+		If($MSWord -or $PDF)
+		{
+			$Script:Selection.InsertNewPage()
+			WriteWordLine 1 0 "FAS Private Key Pool Info "
+			WriteWordLine 2 0 "FAS Private Key Pool Info "
+			$ScriptInformation = New-Object System.Collections.ArrayList
+		}
+		If($Text)
+		{
+			Line 0 "FAS Private Key Pool Info "
+		}
+		If($HTML)
+		{
+			WriteHTMLLine 1 0 "FAS Private Key Pool Info "
+			WriteHTMLLine 2 0 "FAS Private Key Pool Info "
+			$rowdata = @()
+		}
+
+		If($MSWord -or $PDF)
+		{
+			$ScriptInformation.Add(@{Data = "Target size"; Value = $results.TargetSize; }) > $Null
+			$ScriptInformation.Add(@{Data = 'Current size'; Value = $results.CurrentSize; }) > $Null
+
+			$Table = AddWordTable -Hashtable $ScriptInformation `
+			-Columns Data,Value `
+			-List `
+			-Format $wdTableGrid `
+			-AutoFit $wdAutoFitFixed;
+
+			SetWordCellFormat -Collection $Table.Columns.Item(1).Cells -Bold -BackgroundColor $wdColorGray15;
+
+			$Table.Columns.Item(1).Width = 150;
+			$Table.Columns.Item(2).Width = 150;
+
+			$Table.Rows.SetLeftIndent($Indent0TabStops,$wdAdjustProportional)
+
+			FindWordDocumentEnd
+			$Table = $Null
+			WriteWordLine 0 0 ""
+		}
+		If($Text)
+		{
+			Line 1 "Target size : " $results.TargetSize
+			Line 1 "Current size: " $results.CurrentSize
+			Line 0 ""
+		}
+		If($HTML)
+		{
+			$columnHeaders = @("Target size",($Script:htmlsb),$results.TargetSize.ToString(),$htmlwhite)
+			$rowdata += @(,('Current size',($Script:htmlsb),$results.CurrentSize.ToString(),$htmlwhite))
+
+			$msg = ""
+			$columnWidths = @("150","150")
+			FormatHTMLTable $msg "auto" -rowArray $rowdata -columnArray $columnHeaders -fixedWidth $columnWidths
+			WriteHTMLLine 0 0 ""
 		}
 	}
 }
@@ -6393,6 +6613,16 @@ ProcessRootCA
 ProcessCAs
 
 ProcessFASServer
+
+If(Get-Command Get-FasAdministrationPolicy -EA 0)
+{
+    ProcessLocalAdminPolicy
+}
+
+If(Get-Command Get-FasPrivateKeyPoolInfo -EA 0)
+{
+    ProcessPrivateKeyPoolInfo
+}
 
 ProcessFASRules
 
