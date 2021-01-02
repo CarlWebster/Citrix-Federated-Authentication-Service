@@ -48,9 +48,9 @@
 	Adds a date timestamp to the end of the file name.
 	
 	The timestamp is in the format of yyyy-MM-dd_HHmm.
-	June 1, 2020 at 6PM is 2020-06-01_1800.
+	June 1, 2021 at 6PM is 2021-06-01_1800.
 	
-	Output filename will be ReportName_2020-06-01_1800.<fileextension>.
+	Output filename will be ReportName_2021-06-01_1800.<fileextension>.
 	
 	This parameter is disabled by default.
 	This parameter has an alias of ADT.
@@ -284,13 +284,9 @@
 		Carl Webster for the User Name (alias UN).
 		The computer running the script for the AdminAddress.
 .EXAMPLE
-	PS C:\PSScript .\FAS_Inventory_V1.ps1 -MSWord 
-	-CompanyName "Sherlock Holmes Consulting" 
-	-CoverPage Exposure 
-	-UserName "Dr. Watson"
-	-CompanyAddress "221B Baker Street, London, England"
-	-CompanyFax "+44 1753 276600"
-	-CompanyPhone "+44 1753 276200"
+	PS C:\PSScript .\FAS_Inventory_V1.ps1 -MSWord -CompanyName "Sherlock Holmes 
+    Consulting" -CoverPage Exposure -UserName "Dr. Watson" -CompanyAddress "221B Baker 
+    Street, London, England" -CompanyFax "+44 1753 276600" -CompanyPhone "+44 1753 276200"
 	
 	Will use:
 		Sherlock Holmes Consulting for the Company Name.
@@ -300,11 +296,9 @@
 		+44 1753 276600 for the Company Fax.
 		+44 1753 276200 for the Company Phone.
 .EXAMPLE
-	PS C:\PSScript .\FAS_Inventory_V1.ps1 -MSWord 
-	-CompanyName "Sherlock Holmes Consulting" 
-	-CoverPage Facet 
-	-UserName "Dr. Watson"
-	-CompanyEmail SuperSleuth@SherlockHolmes.com
+	PS C:\PSScript .\FAS_Inventory_V1.ps1 -MSWord -CompanyName "Sherlock Holmes 
+    Consulting" -CoverPage Facet -UserName "Dr. Watson" -CompanyEmail 
+    SuperSleuth@SherlockHolmes.com
 
 	Will use:
 		Sherlock Holmes Consulting for the Company Name.
@@ -317,8 +311,8 @@
 	Creates an HTML file.
 	Adds a date time stamp to the end of the file name.
 	The timestamp is in the format of yyyy-MM-dd_HHmm.
-	June 1, 2020 at 6PM is 2020-06-01_1800.
-	Output filename will be CitrixFASInventory_2020-06-01_1800.html.
+	June 1, 2021 at 6PM is 2021-06-01_1800.
+	Output filename will be CitrixFASInventory_2021-06-01_1800.html.
 .EXAMPLE
 	PS C:\PSScript > .\FAS_Inventory_V1.ps1 -PDF -AddDateTime
 	
@@ -334,8 +328,8 @@
 
 	Adds a date time stamp to the end of the file name.
 	The timestamp is in the format of yyyy-MM-dd_HHmm.
-	June 1, 2020 at 6PM is 2020-06-01_1800.
-	Output filename will be CitrixFASInventory_2020-06-01_1800.pdf.
+	June 1, 2021 at 6PM is 2021-06-01_1800.
+	Output filename will be CitrixFASInventory_2021-06-01_1800.pdf.
 .EXAMPLE
 	PS C:\PSScript > .\FAS_Inventory_V1.ps1 -Folder \\FileServer\ShareName
 	
@@ -364,10 +358,8 @@
 	Creates an HTML report.
 	Includes up to the first 25 user certificates.
 .EXAMPLE
-	PS C:\PSScript > .\FAS_Inventory_V1.ps1 
-	-SmtpServer mail.domain.tld
-	-From XDAdmin@domain.tld 
-	-To ITGroup@domain.tld	
+	PS C:\PSScript > .\FAS_Inventory_V1.ps1 -SmtpServer mail.domain.tld -From 
+	XDAdmin@domain.tld -To ITGroup@domain.tld	
 
 	The script will use the email server mail.domain.tld, sending from XDAdmin@domain.tld, 
 	sending to ITGroup@domain.tld.
@@ -377,10 +369,8 @@
 	If the current user's credentials are not valid to send email, 
 	the user will be prompted to enter valid credentials.
 .EXAMPLE
-	PS C:\PSScript > .\FAS_Inventory_V1.ps1 
-	-SmtpServer mailrelay.domain.tld
-	-From Anonymous@domain.tld 
-	-To ITGroup@domain.tld	
+	PS C:\PSScript > .\FAS_Inventory_V1.ps1 -SmtpServer mailrelay.domain.tld -From 
+	Anonymous@domain.tld -To ITGroup@domain.tld	
 
 	***SENDING UNAUTHENTICATED EMAIL***
 
@@ -403,11 +393,9 @@
 	The script will generate an anonymous secure password for the anonymous@domain.tld 
 	account.
 .EXAMPLE
-	PS C:\PSScript > .\FAS_Inventory_V1.ps1 
-	-SmtpServer labaddomain-com.mail.protection.outlook.com
-	-UseSSL
-	-From SomeEmailAddress@labaddomain.com 
-	-To ITGroupDL@labaddomain.com	
+	PS C:\PSScript > .\FAS_Inventory_V1.ps1 SmtpServer 
+	labaddomain-com.mail.protection.outlook.com -UseSSL -From 
+	SomeEmailAddress@labaddomain.com -To ITGroupDL@labaddomain.com	
 
 	***OFFICE 365 Example***
 
@@ -422,12 +410,8 @@
 
 	The script will use the default SMTP port 25 and will use SSL.
 .EXAMPLE
-	PS C:\PSScript > .\FAS_Inventory_V1.ps1 
-	-SmtpServer smtp.office365.com 
-	-SmtpPort 587
-	-UseSSL 
-	-From Webster@CarlWebster.com 
-	-To ITGroup@CarlWebster.com	
+	PS C:\PSScript > .\FAS_Inventory_V1.ps1 -SmtpServer smtp.office365.com -SmtpPort 587
+	-UseSSL -From Webster@CarlWebster.com -To ITGroup@CarlWebster.com	
 
 	The script will use the email server smtp.office365.com on port 587 using SSL, 
 	sending from webster@carlwebster.com, sending to ITGroup@carlwebster.com.
@@ -435,12 +419,8 @@
 	If the current user's credentials are not valid to send email, 
 	the user will be prompted to enter valid credentials.
 .EXAMPLE
-	PS C:\PSScript > .\FAS_Inventory_V1.ps1 
-	-SmtpServer smtp.gmail.com 
-	-SmtpPort 587
-	-UseSSL 
-	-From Webster@CarlWebster.com 
-	-To ITGroup@CarlWebster.com	
+	PS C:\PSScript > .\FAS_Inventory_V1.ps1 -SmtpServer smtp.gmail.com -SmtpPort 587
+	-UseSSL -From Webster@CarlWebster.com -To ITGroup@CarlWebster.com	
 
 	*** NOTE ***
 	To send email using a Gmail or g-suite account, you may have to turn ON
@@ -459,9 +439,9 @@
 	This script creates a Word, PDF, plain text, or HTML document.
 .NOTES
 	NAME: FAS_Inventory_V1.ps1
-	VERSION: 1.11
+	VERSION: 1.12
 	AUTHOR: Carl Webster and Michael B. Smith
-	LASTEDIT: May 9, 2020
+	LASTEDIT: January 2, 2021
 #>
 
 #endregion
