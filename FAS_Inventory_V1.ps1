@@ -14,12 +14,12 @@
 	
 	This script requires an elevated PowerShell session.
 
-	Word is NOT needed to run the script. This script will output in Text and HTML.
+	Word is NOT needed to run the script. This script outputs in Text and HTML.
 	The default output format is HTML.
 	
 	Creates an output file named CitrixFASInventory.<fileextension>.
 	
-	Word and PDF Document includes a Cover Page, Table of Contents and Footer.
+	Word and PDF Document includes a Cover Page, Table of Contents, and Footer.
 	Includes support for the following language versions of Microsoft Word:
 		Catalan
 		Chinese
@@ -265,7 +265,7 @@
 .EXAMPLE
 	PS C:\PSScript > .\FAS_Inventory_V1.ps1 -HTML -MSWord -PDF -Text
 	
-	Creates four reports. One each in HTML, Microsoft Word, PDF, and plain text.
+	Creates four reports, one each in HTML, Microsoft Word, PDF, and plain text.
 .EXAMPLE
 	PS C:\PSScript .\FAS_Inventory_V1.ps1 -MSWord -CompanyName "Carl Webster 
 	Consulting" -CoverPage "Mod" -UserName "Carl Webster"
@@ -361,26 +361,26 @@
 	PS C:\PSScript > .\FAS_Inventory_V1.ps1 -SmtpServer mail.domain.tld -From 
 	XDAdmin@domain.tld -To ITGroup@domain.tld	
 
-	The script will use the email server mail.domain.tld, sending from XDAdmin@domain.tld, 
-	sending to ITGroup@domain.tld.
+    The script uses the email server mail.domain.tld, sending from XDAdmin@domain.tld,
+    sending to ITGroup@domain.tld.
 
-	The script will use the default SMTP port 25 and will not use SSL.
+    The script uses the default SMTP port 25 and does not use SSL.
 
-	If the current user's credentials are not valid to send email, 
-	the user will be prompted to enter valid credentials.
+    If the current user's credentials are not valid to send an email,
+    the script prompts the to enter valid credentials.
 .EXAMPLE
 	PS C:\PSScript > .\FAS_Inventory_V1.ps1 -SmtpServer mailrelay.domain.tld -From 
 	Anonymous@domain.tld -To ITGroup@domain.tld	
 
 	***SENDING UNAUTHENTICATED EMAIL***
 
-	The script will use the email server mailrelay.domain.tld, sending from 
-	anonymous@domain.tld, sending to ITGroup@domain.tld.
+    The script uses the email server mailrelay.domain.tld, sending from
+    anonymous@domain.tld, sending to ITGroup@domain.tld.
 
-	To send unauthenticated email using an email relay server requires the From email account 
-	to use the name Anonymous.
+    To send unauthenticated email using an email relay server requires the From email account
+    to use the name Anonymous.
 
-	The script will use the default SMTP port 25 and will not use SSL.
+    The script uses the default SMTP port 25 and does not use SSL.
 	
 	***GMAIL/G SUITE SMTP RELAY***
 	https://support.google.com/a/answer/2956491?hl=en
@@ -390,8 +390,8 @@
 	the "Less secure app access" option on your account.
 	***GMAIL/G SUITE SMTP RELAY***
 
-	The script will generate an anonymous secure password for the anonymous@domain.tld 
-	account.
+    The script generates an anonymous, secure password for the anonymous@domain.tld
+    account.
 .EXAMPLE
 	PS C:\PSScript > .\FAS_Inventory_V1.ps1 SmtpServer 
 	labaddomain-com.mail.protection.outlook.com -UseSSL -From 
@@ -405,19 +405,19 @@
 	
 	***OFFICE 365 Example***
 
-	The script will use the email server labaddomain-com.mail.protection.outlook.com, 
-	sending from SomeEmailAddress@labaddomain.com, sending to ITGroupDL@labaddomain.com.
+    The script uses the email server labaddomain-com.mail.protection.outlook.com,
+    sending from SomeEmailAddress@labaddomain.com, sending to ITGroupDL@labaddomain.com.
 
-	The script will use the default SMTP port 25 and will use SSL.
+    The script uses the default SMTP port 25 and SSL.
 .EXAMPLE
 	PS C:\PSScript > .\FAS_Inventory_V1.ps1 -SmtpServer smtp.office365.com -SmtpPort 587
 	-UseSSL -From Webster@CarlWebster.com -To ITGroup@CarlWebster.com	
 
-	The script will use the email server smtp.office365.com on port 587 using SSL, 
-	sending from webster@carlwebster.com, sending to ITGroup@carlwebster.com.
+    The script uses the email server smtp.office365.com on port 587 using SSL,
+    sending from webster@carlwebster.com, sending to ITGroup@carlwebster.com.
 
-	If the current user's credentials are not valid to send email, 
-	the user will be prompted to enter valid credentials.
+    If the current user's credentials are not valid to send an email,
+    the script prompts the user to enter valid credentials.
 .EXAMPLE
 	PS C:\PSScript > .\FAS_Inventory_V1.ps1 -SmtpServer smtp.gmail.com -SmtpPort 587
 	-UseSSL -From Webster@CarlWebster.com -To ITGroup@CarlWebster.com	
@@ -427,11 +427,11 @@
 	the "Less secure app access" option on your account.
 	*** NOTE ***
 	
-	The script will use the email server smtp.gmail.com on port 587 using SSL, 
-	sending from webster@gmail.com, sending to ITGroup@carlwebster.com.
+    The script uses the email server smtp.gmail.com on port 587 using SSL,
+    sending from webster@gmail.com, sending to ITGroup@carlwebster.com.
 
-	If the current user's credentials are not valid to send email, 
-	the user will be prompted to enter valid credentials.
+    If the current user's credentials are not valid to send an email,
+    the script prompts the user to enter valid credentials.
 .INPUTS
 	None. You cannot pipe objects to this script.
 .OUTPUTS
@@ -441,7 +441,7 @@
 	NAME: FAS_Inventory_V1.ps1
 	VERSION: 1.12
 	AUTHOR: Carl Webster and Michael B. Smith
-	LASTEDIT: January 2, 2021
+	LASTEDIT: January 10, 2021
 #>
 
 #endregion
@@ -606,24 +606,24 @@ If($MSWord -eq $False -and $PDF -eq $False -and $Text -eq $False -and $HTML -eq 
 
 If($MSWord)
 {
-	Write-Verbose "$(Get-Date)  -Format G: MSWord is set"
+	Write-Verbose "$(Get-Date -Format G): MSWord is set"
 }
 If($PDF)
 {
-	Write-Verbose "$(Get-Date)  -Format G: PDF is set"
+	Write-Verbose "$(Get-Date -Format G): PDF is set"
 }
 If($Text)
 {
-	Write-Verbose "$(Get-Date)  -Format G: Text is set"
+	Write-Verbose "$(Get-Date -Format G): Text is set"
 }
 If($HTML)
 {
-	Write-Verbose "$(Get-Date)  -Format G: HTML is set"
+	Write-Verbose "$(Get-Date -Format G): HTML is set"
 }
 
 If($Folder -ne "")
 {
-	Write-Verbose "$(Get-Date)  -Format G: Testing folder path"
+	Write-Verbose "$(Get-Date -Format G): Testing folder path"
 	#does it exist
 	If(Test-Path $Folder -EA 0)
 	{
@@ -631,7 +631,7 @@ If($Folder -ne "")
 		If(Test-Path $Folder -pathType Container -EA 0)
 		{
 			#it exists and it is a folder
-			Write-Verbose "$(Get-Date)  -Format G: Folder path $Folder exists and is a folder"
+			Write-Verbose "$(Get-Date -Format G): Folder path $Folder exists and is a folder"
 		}
 		Else
 		{
@@ -687,12 +687,12 @@ If($Log)
 	try 
 	{
 		Start-Transcript -Path $Script:LogPath -Force -Verbose:$false | Out-Null
-		Write-Verbose "$(Get-Date)  -Format G: Transcript/log started at $Script:LogPath"
+		Write-Verbose "$(Get-Date -Format G): Transcript/log started at $Script:LogPath"
 		$Script:StartLog = $true
 	} 
 	catch 
 	{
-		Write-Verbose "$(Get-Date)  -Format G: Transcript/log failed at $Script:LogPath"
+		Write-Verbose "$(Get-Date -Format G): Transcript/log failed at $Script:LogPath"
 		$Script:StartLog = $false
 	}
 }
@@ -923,8 +923,8 @@ Function GetComputerWMIInfo
 	# modified 29-Apr-2018 to change from Arrays to New-Object System.Collections.ArrayList
 
 	#Get Computer info
-	Write-Verbose "$(Get-Date)  -Format G: `t`tProcessing WMI Computer information"
-	Write-Verbose "$(Get-Date)  -Format G: `t`t`tHardware information"
+	Write-Verbose "$(Get-Date -Format G): `t`tProcessing WMI Computer information"
+	Write-Verbose "$(Get-Date -Format G): `t`t`tHardware information"
 	If($MSWord -or $PDF)
 	{
 		WriteWordLine 3 0 "Computer Information: $($RemoteComputerName)"
@@ -966,7 +966,7 @@ Function GetComputerWMIInfo
 	}
 	ElseIf(!$?)
 	{
-		Write-Verbose "$(Get-Date)  -Format G: Get-WmiObject win32_computersystem failed for $($RemoteComputerName)"
+		Write-Verbose "$(Get-Date -Format G): Get-WmiObject win32_computersystem failed for $($RemoteComputerName)"
 		Write-Warning "Get-WmiObject win32_computersystem failed for $($RemoteComputerName)"
 		If($MSWORD -or $PDF)
 		{
@@ -993,7 +993,7 @@ Function GetComputerWMIInfo
 	}
 	Else
 	{
-		Write-Verbose "$(Get-Date)  -Format G: No results Returned for Computer information"
+		Write-Verbose "$(Get-Date -Format G): No results Returned for Computer information"
 		If($MSWORD -or $PDF)
 		{
 			WriteWordLine 0 2 "No results Returned for Computer information" "" $Null 0 $False $True
@@ -1009,7 +1009,7 @@ Function GetComputerWMIInfo
 	}
 	
 	#Get Disk info
-	Write-Verbose "$(Get-Date)  -Format G: `t`t`tDrive information"
+	Write-Verbose "$(Get-Date -Format G): `t`t`tDrive information"
 
 	If($MSWord -or $PDF)
 	{
@@ -1050,7 +1050,7 @@ Function GetComputerWMIInfo
 	}
 	ElseIf(!$?)
 	{
-		Write-Verbose "$(Get-Date)  -Format G: Get-WmiObject Win32_LogicalDisk failed for $($RemoteComputerName)"
+		Write-Verbose "$(Get-Date -Format G): Get-WmiObject Win32_LogicalDisk failed for $($RemoteComputerName)"
 		Write-Warning "Get-WmiObject Win32_LogicalDisk failed for $($RemoteComputerName)"
 		If($MSWORD -or $PDF)
 		{
@@ -1076,7 +1076,7 @@ Function GetComputerWMIInfo
 	}
 	Else
 	{
-		Write-Verbose "$(Get-Date)  -Format G: No results Returned for Drive information"
+		Write-Verbose "$(Get-Date -Format G): No results Returned for Drive information"
 		If($MSWORD -or $PDF)
 		{
 			WriteWordLine 0 2 "No results Returned for Drive information" "" $Null 0 $False $True
@@ -1092,7 +1092,7 @@ Function GetComputerWMIInfo
 	}
 	
 	#Get CPU's and stepping
-	Write-Verbose "$(Get-Date)  -Format G: `t`t`tProcessor information"
+	Write-Verbose "$(Get-Date -Format G): `t`t`tProcessor information"
 
 	If($MSWord -or $PDF)
 	{
@@ -1129,7 +1129,7 @@ Function GetComputerWMIInfo
 	}
 	ElseIf(!$?)
 	{
-		Write-Verbose "$(Get-Date)  -Format G: Get-WmiObject win32_Processor failed for $($RemoteComputerName)"
+		Write-Verbose "$(Get-Date -Format G): Get-WmiObject win32_Processor failed for $($RemoteComputerName)"
 		Write-Warning "Get-WmiObject win32_Processor failed for $($RemoteComputerName)"
 		If($MSWORD -or $PDF)
 		{
@@ -1155,7 +1155,7 @@ Function GetComputerWMIInfo
 	}
 	Else
 	{
-		Write-Verbose "$(Get-Date)  -Format G: No results Returned for Processor information"
+		Write-Verbose "$(Get-Date -Format G): No results Returned for Processor information"
 		If($MSWORD -or $PDF)
 		{
 			WriteWordLine 0 2 "No results Returned for Processor information" "" $Null 0 $False $True
@@ -1171,7 +1171,7 @@ Function GetComputerWMIInfo
 	}
 
 	#Get Nics
-	Write-Verbose "$(Get-Date)  -Format G: `t`t`tNIC information"
+	Write-Verbose "$(Get-Date -Format G): `t`t`tNIC information"
 
 	If($MSWord -or $PDF)
 	{
@@ -1233,7 +1233,7 @@ Function GetComputerWMIInfo
 				ElseIf(!$?)
 				{
 					Write-Warning "$(Get-Date): Error retrieving NIC information"
-					Write-Verbose "$(Get-Date)  -Format G: Get-WmiObject win32_networkadapterconfiguration failed for $($RemoteComputerName)"
+					Write-Verbose "$(Get-Date -Format G): Get-WmiObject win32_networkadapterconfiguration failed for $($RemoteComputerName)"
 					Write-Warning "Get-WmiObject win32_networkadapterconfiguration failed for $($RemoteComputerName)"
 					If($MSWORD -or $PDF)
 					{
@@ -1262,7 +1262,7 @@ Function GetComputerWMIInfo
 				}
 				Else
 				{
-					Write-Verbose "$(Get-Date)  -Format G: No results Returned for NIC information"
+					Write-Verbose "$(Get-Date -Format G): No results Returned for NIC information"
 					If($MSWORD -or $PDF)
 					{
 						WriteWordLine 0 2 "No results Returned for NIC information" "" $Null 0 $False $True
@@ -1282,7 +1282,7 @@ Function GetComputerWMIInfo
 	ElseIf(!$?)
 	{
 		Write-Warning "$(Get-Date): Error retrieving NIC configuration information"
-		Write-Verbose "$(Get-Date)  -Format G: Get-WmiObject win32_networkadapterconfiguration failed for $($RemoteComputerName)"
+		Write-Verbose "$(Get-Date -Format G): Get-WmiObject win32_networkadapterconfiguration failed for $($RemoteComputerName)"
 		Write-Warning "Get-WmiObject win32_networkadapterconfiguration failed for $($RemoteComputerName)"
 		If($MSWORD -or $PDF)
 		{
@@ -1311,7 +1311,7 @@ Function GetComputerWMIInfo
 	}
 	Else
 	{
-		Write-Verbose "$(Get-Date)  -Format G: No results Returned for NIC configuration information"
+		Write-Verbose "$(Get-Date -Format G): No results Returned for NIC configuration information"
 		If($MSWORD -or $PDF)
 		{
 			WriteWordLine 0 2 "No results Returned for NIC configuration information" "" $Null 0 $False $True
@@ -2625,7 +2625,7 @@ Function validObject( [object] $object, [string] $topLevel )
 
 Function SetupWord
 {
-	Write-Verbose "$(Get-Date)  -Format G: Setting up Word"
+	Write-Verbose "$(Get-Date -Format G): Setting up Word"
     
 	If(!$AddDateTime)
 	{
@@ -2645,7 +2645,7 @@ Function SetupWord
 	}
 
 	# Setup word for output
-	Write-Verbose "$(Get-Date)  -Format G: Create Word comObject."
+	Write-Verbose "$(Get-Date -Format G): Create Word comObject."
 	$Script:Word = New-Object -comobject "Word.Application" -EA 0 4>$Null
 	
 	If(!$? -or $Null -eq $Script:Word)
@@ -2663,7 +2663,7 @@ Function SetupWord
 		AbortScript
 	}
 
-	Write-Verbose "$(Get-Date)  -Format G: Determine Word language value"
+	Write-Verbose "$(Get-Date -Format G): Determine Word language value"
 	If( ( validStateProp $Script:Word Language Value__ ) )
 	{
 		[int]$Script:WordLanguageValue = [int]$Script:Word.Language.Value__
@@ -2686,7 +2686,7 @@ Function SetupWord
 		"
 		AbortScript
 	}
-	Write-Verbose "$(Get-Date)  -Format G: Word language value is $($Script:WordLanguageValue)"
+	Write-Verbose "$(Get-Date -Format G): Word language value is $($Script:WordLanguageValue)"
 	
 	$Script:WordCultureCode = GetCulture $Script:WordLanguageValue
 	
@@ -2751,7 +2751,7 @@ Function SetupWord
 	#only validate CompanyName if the field is blank
 	If([String]::IsNullOrEmpty($CompanyName))
 	{
-		Write-Verbose "$(Get-Date)  -Format G: Company name is blank. Retrieve company name from registry."
+		Write-Verbose "$(Get-Date -Format G): Company name is blank. Retrieve company name from registry."
 		$TmpName = ValidateCompanyName
 		
 		If([String]::IsNullOrEmpty($TmpName))
@@ -2771,7 +2771,7 @@ Function SetupWord
 		Else
 		{
 			$Script:CoName = $TmpName
-			Write-Verbose "$(Get-Date)  -Format G: Updated company name to $($Script:CoName)"
+			Write-Verbose "$(Get-Date -Format G): Updated company name to $($Script:CoName)"
 		}
 	}
 	Else
@@ -2781,7 +2781,7 @@ Function SetupWord
 
 	If($Script:WordCultureCode -ne "en-")
 	{
-		Write-Verbose "$(Get-Date)  -Format G: Check Default Cover Page for $($WordCultureCode)"
+		Write-Verbose "$(Get-Date -Format G): Check Default Cover Page for $($WordCultureCode)"
 		[bool]$CPChanged = $False
 		Switch ($Script:WordCultureCode)
 		{
@@ -2884,19 +2884,19 @@ Function SetupWord
 
 		If($CPChanged)
 		{
-			Write-Verbose "$(Get-Date)  -Format G: Changed Default Cover Page from Sideline to $($CoverPage)"
+			Write-Verbose "$(Get-Date -Format G): Changed Default Cover Page from Sideline to $($CoverPage)"
 		}
 	}
 
-	Write-Verbose "$(Get-Date)  -Format G: Validate cover page $($CoverPage) for culture code $($Script:WordCultureCode)"
+	Write-Verbose "$(Get-Date -Format G): Validate cover page $($CoverPage) for culture code $($Script:WordCultureCode)"
 	[bool]$ValidCP = $False
 	
 	$ValidCP = ValidateCoverPage $Script:WordVersion $CoverPage $Script:WordCultureCode
 	
 	If(!$ValidCP)
 	{
-		Write-Verbose "$(Get-Date)  -Format G: Word language value $($Script:WordLanguageValue)"
-		Write-Verbose "$(Get-Date)  -Format G: Culture code $($Script:WordCultureCode)"
+		Write-Verbose "$(Get-Date -Format G): Word language value $($Script:WordLanguageValue)"
+		Write-Verbose "$(Get-Date -Format G): Culture code $($Script:WordCultureCode)"
 		Write-Error "
 		`n`n
 		`t`t
@@ -2913,7 +2913,7 @@ Function SetupWord
 
 	#http://jdhitsolutions.com/blog/2012/05/san-diego-2012-powershell-deep-dive-slides-and-demos/
 	#using Jeff's Demo-WordReport.ps1 file for examples
-	Write-Verbose "$(Get-Date)  -Format G: Load Word Templates"
+	Write-Verbose "$(Get-Date -Format G): Load Word Templates"
 
 	[bool]$Script:CoverPagesExist = $False
 	[bool]$BuildingBlocksExist = $False
@@ -2922,7 +2922,7 @@ Function SetupWord
 	#word 2010/2013/2016
 	$BuildingBlocksCollection = $Script:Word.Templates | Where-Object{$_.name -eq "Built-In Building Blocks.dotx"}
 
-	Write-Verbose "$(Get-Date)  -Format G: Attempt to load cover page $($CoverPage)"
+	Write-Verbose "$(Get-Date -Format G): Attempt to load cover page $($CoverPage)"
 	$part = $Null
 
 	$BuildingBlocksCollection | 
@@ -2955,16 +2955,16 @@ Function SetupWord
 
 	If(!$Script:CoverPagesExist)
 	{
-		Write-Verbose "$(Get-Date)  -Format G: Cover Pages are not installed or the Cover Page $($CoverPage) does not exist."
+		Write-Verbose "$(Get-Date -Format G): Cover Pages are not installed or the Cover Page $($CoverPage) does not exist."
 		Write-Warning "Cover Pages are not installed or the Cover Page $($CoverPage) does not exist."
 		Write-Warning "This report will not have a Cover Page."
 	}
 
-	Write-Verbose "$(Get-Date)  -Format G: Create empty word doc"
+	Write-Verbose "$(Get-Date -Format G): Create empty word doc"
 	$Script:Doc = $Script:Word.Documents.Add()
 	If($Null -eq $Script:Doc)
 	{
-		Write-Verbose "$(Get-Date)  -Format G: "
+		Write-Verbose "$(Get-Date -Format G): "
 		Write-Error "
 		`n`n
 		`t`t
@@ -2980,7 +2980,7 @@ Function SetupWord
 	$Script:Selection = $Script:Word.Selection
 	If($Null -eq $Script:Selection)
 	{
-		Write-Verbose "$(Get-Date)  -Format G: "
+		Write-Verbose "$(Get-Date -Format G): "
 		Write-Error "
 		`n`n
 		`t`t
@@ -2998,7 +2998,7 @@ Function SetupWord
 	$Script:Word.ActiveDocument.DefaultTabStop = 36
 
 	#Disable Spell and Grammar Check to resolve issue and improve performance (from Pat Coughlin)
-	Write-Verbose "$(Get-Date)  -Format G: Disable grammar and spell checking"
+	Write-Verbose "$(Get-Date -Format G): Disable grammar and spell checking"
 	#bug reported 1-Apr-2014 by Tim Mangan
 	#save current options first before turning them off
 	$Script:CurrentGrammarOption = $Script:Word.Options.CheckGrammarAsYouType
@@ -3009,17 +3009,17 @@ Function SetupWord
 	If($BuildingBlocksExist)
 	{
 		#insert new page, getting ready for table of contents
-		Write-Verbose "$(Get-Date)  -Format G: Insert new page, getting ready for table of contents"
+		Write-Verbose "$(Get-Date -Format G): Insert new page, getting ready for table of contents"
 		$part.Insert($Script:Selection.Range,$True) | Out-Null
 		$Script:Selection.InsertNewPage()
 
 		#table of contents
-		Write-Verbose "$(Get-Date)  -Format G: Table of Contents - $($Script:MyHash.Word_TableOfContents)"
+		Write-Verbose "$(Get-Date -Format G): Table of Contents - $($Script:MyHash.Word_TableOfContents)"
 		$toc = $BuildingBlocks.BuildingBlockEntries.Item($Script:MyHash.Word_TableOfContents)
 		If($Null -eq $toc)
 		{
-			Write-Verbose "$(Get-Date)  -Format G: "
-			Write-Verbose "$(Get-Date)  -Format G: Table of Content - $($Script:MyHash.Word_TableOfContents) could not be retrieved."
+			Write-Verbose "$(Get-Date -Format G): "
+			Write-Verbose "$(Get-Date -Format G): Table of Content - $($Script:MyHash.Word_TableOfContents) could not be retrieved."
 			Write-Warning "This report will not have a Table of Contents."
 		}
 		Else
@@ -3029,16 +3029,16 @@ Function SetupWord
 	}
 	Else
 	{
-		Write-Verbose "$(Get-Date)  -Format G: Table of Contents are not installed."
+		Write-Verbose "$(Get-Date -Format G): Table of Contents are not installed."
 		Write-Warning "Table of Contents are not installed so this report will not have a Table of Contents."
 	}
 
 	#set the footer
-	Write-Verbose "$(Get-Date)  -Format G: Set the footer"
+	Write-Verbose "$(Get-Date -Format G): Set the footer"
 	[string]$footertext = "Report created by $username"
 
 	#get the footer
-	Write-Verbose "$(Get-Date)  -Format G: Get the footer and format font"
+	Write-Verbose "$(Get-Date -Format G): Get the footer and format font"
 	$Script:Doc.ActiveWindow.ActivePane.view.SeekView = $wdSeekPrimaryFooter
 	#get the footer and format font
 	$footers = $Script:Doc.Sections.Last.Footers
@@ -3052,15 +3052,15 @@ Function SetupWord
 			$footer.range.Font.Bold = $True
 		}
 	} #end ForEach
-	Write-Verbose "$(Get-Date)  -Format G: Footer text"
+	Write-Verbose "$(Get-Date -Format G): Footer text"
 	$Script:Selection.HeaderFooter.Range.Text = $footerText
 
 	#add page numbering
-	Write-Verbose "$(Get-Date)  -Format G: Add page numbering"
+	Write-Verbose "$(Get-Date -Format G): Add page numbering"
 	$Script:Selection.HeaderFooter.PageNumbers.Add($wdAlignPageNumberRight) | Out-Null
 
 	FindWordDocumentEnd
-	Write-Verbose "$(Get-Date)  -Format G:"
+	Write-Verbose "$(Get-Date -Format G):"
 	#end of Jeff Hicks 
 }
 
@@ -3073,7 +3073,7 @@ Function UpdateDocumentProperties
 	{
 		If($Script:CoverPagesExist)
 		{
-			Write-Verbose "$(Get-Date)  -Format G: Set Cover Page Properties"
+			Write-Verbose "$(Get-Date -Format G): Set Cover Page Properties"
 			#8-Jun-2017 put these 4 items in alpha order
             Set-DocumentProperty -Document $Script:Doc -DocProperty Author -Value $UserName
             Set-DocumentProperty -Document $Script:Doc -DocProperty Company -Value $Script:CoName
@@ -3125,7 +3125,7 @@ Function UpdateDocumentProperties
 			[string]$abstract = (Get-Date -Format d).ToString()
 			$ab.Text = $abstract
 
-			Write-Verbose "$(Get-Date)  -Format G: Update the Table of Contents"
+			Write-Verbose "$(Get-Date -Format G): Update the Table of Contents"
 			#update the Table of Contents
 			$Script:Doc.TablesOfContents.item(1).Update()
 			$cp = $Null
@@ -3833,7 +3833,7 @@ Function FormatHTMLTable
 #region other HTML functions
 Function SetupHTML
 {
-	Write-Verbose "$(Get-Date)  -Format G: Setting up HTML"
+	Write-Verbose "$(Get-Date -Format G): Setting up HTML"
 	If(!$AddDateTime)
 	{
 		[string]$Script:HtmlFileName = "$($Script:pwdpath)\$($OutputFileName).html"
@@ -4357,7 +4357,7 @@ Function SaveandCloseDocumentandShutdownWord
 	$Script:Word.Options.CheckGrammarAsYouType = $Script:CurrentGrammarOption
 	$Script:Word.Options.CheckSpellingAsYouType = $Script:CurrentSpellingOption
 
-	Write-Verbose "$(Get-Date)  -Format G: Save and Close document and Shutdown Word"
+	Write-Verbose "$(Get-Date -Format G): Save and Close document and Shutdown Word"
 	If($Script:WordVersion -eq $wdWord2010)
 	{
 		#the $saveFormat below passes StrictMode 2
@@ -4366,18 +4366,18 @@ Function SaveandCloseDocumentandShutdownWord
 		#http://msdn.microsoft.com/en-us/library/microsoft.office.interop.word.wdsaveformat(v=office.14).aspx
 		If($PDF)
 		{
-			Write-Verbose "$(Get-Date)  -Format G: Saving as DOCX file first before saving to PDF"
+			Write-Verbose "$(Get-Date -Format G): Saving as DOCX file first before saving to PDF"
 		}
 		Else
 		{
-			Write-Verbose "$(Get-Date)  -Format G: Saving DOCX file"
+			Write-Verbose "$(Get-Date -Format G): Saving DOCX file"
 		}
-		Write-Verbose "$(Get-Date)  -Format G: Running $($Script:WordProduct) and detected operating system $($Script:RunningOS)"
+		Write-Verbose "$(Get-Date -Format G): Running $($Script:WordProduct) and detected operating system $($Script:RunningOS)"
 		$saveFormat = [Enum]::Parse([Microsoft.Office.Interop.Word.WdSaveFormat], "wdFormatDocumentDefault")
 		$Script:Doc.SaveAs([REF]$Script:WordFileName, [ref]$SaveFormat)
 		If($PDF)
 		{
-			Write-Verbose "$(Get-Date)  -Format G: Now saving as PDF"
+			Write-Verbose "$(Get-Date -Format G): Now saving as PDF"
 			$saveFormat = [Enum]::Parse([Microsoft.Office.Interop.Word.WdSaveFormat], "wdFormatPDF")
 			$Script:Doc.SaveAs([REF]$Script:PDFFileName, [ref]$saveFormat)
 		}
@@ -4386,25 +4386,25 @@ Function SaveandCloseDocumentandShutdownWord
 	{
 		If($PDF)
 		{
-			Write-Verbose "$(Get-Date)  -Format G: Saving as DOCX file first before saving to PDF"
+			Write-Verbose "$(Get-Date -Format G): Saving as DOCX file first before saving to PDF"
 		}
 		Else
 		{
-			Write-Verbose "$(Get-Date)  -Format G: Saving DOCX file"
+			Write-Verbose "$(Get-Date -Format G): Saving DOCX file"
 		}
-		Write-Verbose "$(Get-Date)  -Format G: Running $($Script:WordProduct) and detected operating system $($Script:RunningOS)"
+		Write-Verbose "$(Get-Date -Format G): Running $($Script:WordProduct) and detected operating system $($Script:RunningOS)"
 		$Script:Doc.SaveAs2([REF]$Script:WordFileName, [ref]$wdFormatDocumentDefault)
 		If($PDF)
 		{
-			Write-Verbose "$(Get-Date)  -Format G: Now saving as PDF"
+			Write-Verbose "$(Get-Date -Format G): Now saving as PDF"
 			$Script:Doc.SaveAs([REF]$Script:PDFFileName, [ref]$wdFormatPDF)
 		}
 	}
 
-	Write-Verbose "$(Get-Date)  -Format G: Closing Word"
+	Write-Verbose "$(Get-Date -Format G): Closing Word"
 	$Script:Doc.Close()
 	$Script:Word.Quit()
-	Write-Verbose "$(Get-Date)  -Format G: System Cleanup"
+	Write-Verbose "$(Get-Date -Format G): System Cleanup"
 	[System.Runtime.Interopservices.Marshal]::ReleaseComObject($Script:Word) | Out-Null
 	Remove-Variable -Name word -Scope Script 4>$Null
 	Remove-Variable -Name Doc  -Scope Script 4>$Null
@@ -4422,14 +4422,14 @@ Function SaveandCloseDocumentandShutdownWord
 	$wordprocess = (Get-Process 'WinWord' -ea 0) | Where-Object {$_.SessionId -eq $SessionID}
 	If($null -ne $wordprocess -and $wordprocess.Id -gt 0)
 	{
-		Write-Verbose "$(Get-Date)  -Format G: WinWord process is still running. Attempting to stop WinWord process # $($wordprocess.Id)"
+		Write-Verbose "$(Get-Date -Format G): WinWord process is still running. Attempting to stop WinWord process # $($wordprocess.Id)"
 		Stop-Process $wordprocess.Id -EA 0
 	}
 }
 
 Function SetupText
 {
-	Write-Verbose "$(Get-Date)  -Format G: Setting up Text"
+	Write-Verbose "$(Get-Date -Format G): Setting up Text"
 	[System.Text.StringBuilder] $Script:Output = New-Object System.Text.StringBuilder( 16384 )
 
 	If(!$AddDateTime)
@@ -4444,13 +4444,13 @@ Function SetupText
 
 Function SaveandCloseTextDocument
 {
-	Write-Verbose "$(Get-Date)  -Format G: Saving Text file"
+	Write-Verbose "$(Get-Date -Format G): Saving Text file"
 	Write-Output $Script:Output.ToString() | Out-File $Script:TextFileName 4>$Null
 }
 
 Function SaveandCloseHTMLDocument
 {
-	Write-Verbose "$(Get-Date)  -Format G: Saving HTML file"
+	Write-Verbose "$(Get-Date -Format G): Saving HTML file"
 	Out-File -FilePath $Script:HtmlFileName -Append -InputObject "<p></p></body></html>" 4>$Null
 }
 
@@ -4500,7 +4500,7 @@ Function ProcessDocumentOutput
 		{
 			If(Test-Path "$($Script:WordFileName)")
 			{
-				Write-Verbose "$(Get-Date)  -Format G: $($Script:WordFileName) is ready for use"
+				Write-Verbose "$(Get-Date -Format G): $($Script:WordFileName) is ready for use"
 				$GotFile = $True
 			}
 			Else
@@ -4513,7 +4513,7 @@ Function ProcessDocumentOutput
 		{
 			If(Test-Path "$($Script:PDFFileName)")
 			{
-				Write-Verbose "$(Get-Date)  -Format G: $($Script:PDFFileName) is ready for use"
+				Write-Verbose "$(Get-Date -Format G): $($Script:PDFFileName) is ready for use"
 				$GotFile = $True
 			}
 			Else
@@ -4526,7 +4526,7 @@ Function ProcessDocumentOutput
 		{
 			If(Test-Path "$($Script:TextFileName)")
 			{
-				Write-Verbose "$(Get-Date)  -Format G: $($Script:TextFileName) is ready for use"
+				Write-Verbose "$(Get-Date -Format G): $($Script:TextFileName) is ready for use"
 				$GotFile = $True
 			}
 			Else
@@ -4539,7 +4539,7 @@ Function ProcessDocumentOutput
 		{
 			If(Test-Path "$($Script:HTMLFileName)")
 			{
-				Write-Verbose "$(Get-Date)  -Format G: $($Script:HTMLFileName) is ready for use"
+				Write-Verbose "$(Get-Date -Format G): $($Script:HTMLFileName) is ready for use"
 				$GotFile = $True
 			}
 			Else
@@ -4578,80 +4578,80 @@ Function ProcessDocumentOutput
 
 Function ShowScriptOptions
 {
-	Write-Verbose "$(Get-Date)  -Format G: "
-	Write-Verbose "$(Get-Date)  -Format G: "
-	Write-Verbose "$(Get-Date)  -Format G: Add DateTime         : $($AddDateTime)"
-	Write-Verbose "$(Get-Date)  -Format G: Citrix Templates Only: $($CitrixTemplatesOnly)"
+	Write-Verbose "$(Get-Date -Format G): "
+	Write-Verbose "$(Get-Date -Format G): "
+	Write-Verbose "$(Get-Date -Format G): Add DateTime         : $($AddDateTime)"
+	Write-Verbose "$(Get-Date -Format G): Citrix Templates Only: $($CitrixTemplatesOnly)"
 	If($MSWORD -or $PDF)
 	{
-		Write-Verbose "$(Get-Date)  -Format G: Company Name         : $($Script:CoName)"
-		Write-Verbose "$(Get-Date)  -Format G: Company Address      : $($CompanyAddress)"
-		Write-Verbose "$(Get-Date)  -Format G: Company Email        : $($CompanyEmail)"
-		Write-Verbose "$(Get-Date)  -Format G: Company Fax          : $($CompanyFax)"
-		Write-Verbose "$(Get-Date)  -Format G: Company Phone        : $($CompanyPhone)"
-		Write-Verbose "$(Get-Date)  -Format G: Cover Page           : $($CoverPage)"
+		Write-Verbose "$(Get-Date -Format G): Company Name         : $($Script:CoName)"
+		Write-Verbose "$(Get-Date -Format G): Company Address      : $($CompanyAddress)"
+		Write-Verbose "$(Get-Date -Format G): Company Email        : $($CompanyEmail)"
+		Write-Verbose "$(Get-Date -Format G): Company Fax          : $($CompanyFax)"
+		Write-Verbose "$(Get-Date -Format G): Company Phone        : $($CompanyPhone)"
+		Write-Verbose "$(Get-Date -Format G): Cover Page           : $($CoverPage)"
 	}
-	Write-Verbose "$(Get-Date)  -Format G: Dev                  : $($Dev)"
+	Write-Verbose "$(Get-Date -Format G): Dev                  : $($Dev)"
 	If($Dev)
 	{
-		Write-Verbose "$(Get-Date)  -Format G: DevErrorFile         : $($Script:DevErrorFile)"
+		Write-Verbose "$(Get-Date -Format G): DevErrorFile         : $($Script:DevErrorFile)"
 	}
 	If($MSWord)
 	{
-		Write-Verbose "$(Get-Date)  -Format G: Word FileName        : $($Script:WordFileName)"
+		Write-Verbose "$(Get-Date -Format G): Word FileName        : $($Script:WordFileName)"
 	}
 	If($HTML)
 	{
-		Write-Verbose "$(Get-Date)  -Format G: HTML FileName        : $($Script:HtmlFileName)"
+		Write-Verbose "$(Get-Date -Format G): HTML FileName        : $($Script:HtmlFileName)"
 	} 
 	If($PDF)
 	{
-		Write-Verbose "$(Get-Date)  -Format G: PDF FileName         : $($Script:PDFFileName)"
+		Write-Verbose "$(Get-Date -Format G): PDF FileName         : $($Script:PDFFileName)"
 	}
 	If($Text)
 	{
-		Write-Verbose "$(Get-Date)  -Format G: Text FileName        : $($Script:TextFileName)"
+		Write-Verbose "$(Get-Date -Format G): Text FileName        : $($Script:TextFileName)"
 	}
-	Write-Verbose "$(Get-Date)  -Format G: Folder               : $($Folder)"
-	Write-Verbose "$(Get-Date)  -Format G: From                 : $($From)"
-	Write-Verbose "$(Get-Date)  -Format G: Hardware Inventory   : $($Hardware)"
-	Write-Verbose "$(Get-Date)  -Format G: Limit User Certs     : $($LimitUserCertificates)"
-	Write-Verbose "$(Get-Date)  -Format G: Log                  : $($Log)"
-	Write-Verbose "$(Get-Date)  -Format G: Save As HTML         : $($HTML)"
-	Write-Verbose "$(Get-Date)  -Format G: Save As PDF          : $($PDF)"
-	Write-Verbose "$(Get-Date)  -Format G: Save As TEXT         : $($TEXT)"
-	Write-Verbose "$(Get-Date)  -Format G: Save As WORD         : $($MSWORD)"
-	Write-Verbose "$(Get-Date)  -Format G: ScriptInfo           : $($ScriptInfo)"
-	Write-Verbose "$(Get-Date)  -Format G: Smtp Port            : $($SmtpPort)"
-	Write-Verbose "$(Get-Date)  -Format G: Smtp Server          : $($SmtpServer)"
-	Write-Verbose "$(Get-Date)  -Format G: Title                : $($Script:FASDisplayName)"
-	Write-Verbose "$(Get-Date)  -Format G: To                   : $($To)"
-	Write-Verbose "$(Get-Date)  -Format G: Use SSL              : $($UseSSL)"
+	Write-Verbose "$(Get-Date -Format G): Folder               : $($Folder)"
+	Write-Verbose "$(Get-Date -Format G): From                 : $($From)"
+	Write-Verbose "$(Get-Date -Format G): Hardware Inventory   : $($Hardware)"
+	Write-Verbose "$(Get-Date -Format G): Limit User Certs     : $($LimitUserCertificates)"
+	Write-Verbose "$(Get-Date -Format G): Log                  : $($Log)"
+	Write-Verbose "$(Get-Date -Format G): Save As HTML         : $($HTML)"
+	Write-Verbose "$(Get-Date -Format G): Save As PDF          : $($PDF)"
+	Write-Verbose "$(Get-Date -Format G): Save As TEXT         : $($TEXT)"
+	Write-Verbose "$(Get-Date -Format G): Save As WORD         : $($MSWORD)"
+	Write-Verbose "$(Get-Date -Format G): ScriptInfo           : $($ScriptInfo)"
+	Write-Verbose "$(Get-Date -Format G): Smtp Port            : $($SmtpPort)"
+	Write-Verbose "$(Get-Date -Format G): Smtp Server          : $($SmtpServer)"
+	Write-Verbose "$(Get-Date -Format G): Title                : $($Script:FASDisplayName)"
+	Write-Verbose "$(Get-Date -Format G): To                   : $($To)"
+	Write-Verbose "$(Get-Date -Format G): Use SSL              : $($UseSSL)"
 	If($MSWORD -or $PDF)
 	{
-		Write-Verbose "$(Get-Date)  -Format G: User Name            : $($UserName)"
+		Write-Verbose "$(Get-Date -Format G): User Name            : $($UserName)"
 	}
-	Write-Verbose "$(Get-Date)  -Format G: "
-	Write-Verbose "$(Get-Date)  -Format G: OS Detected          : $($Script:RunningOS)"
-	Write-Verbose "$(Get-Date)  -Format G: PoSH version         : $($Host.Version)"
-	Write-Verbose "$(Get-Date)  -Format G: PSCulture            : $($PSCulture)"
-	Write-Verbose "$(Get-Date)  -Format G: PSUICulture          : $($PSUICulture)"
+	Write-Verbose "$(Get-Date -Format G): "
+	Write-Verbose "$(Get-Date -Format G): OS Detected          : $($Script:RunningOS)"
+	Write-Verbose "$(Get-Date -Format G): PoSH version         : $($Host.Version)"
+	Write-Verbose "$(Get-Date -Format G): PSCulture            : $($PSCulture)"
+	Write-Verbose "$(Get-Date -Format G): PSUICulture          : $($PSUICulture)"
 	If($MSWORD -or $PDF)
 	{
-		Write-Verbose "$(Get-Date)  -Format G: Word language        : $($Script:WordLanguageValue)"
-		Write-Verbose "$(Get-Date)  -Format G: Word version         : $($Script:WordProduct)"
+		Write-Verbose "$(Get-Date -Format G): Word language        : $($Script:WordLanguageValue)"
+		Write-Verbose "$(Get-Date -Format G): Word version         : $($Script:WordProduct)"
 	}
-	Write-Verbose "$(Get-Date)  -Format G: "
-	Write-Verbose "$(Get-Date)  -Format G: Script start         : $($Script:StartTime)"
-	Write-Verbose "$(Get-Date)  -Format G: "
-	Write-Verbose "$(Get-Date)  -Format G: "
+	Write-Verbose "$(Get-Date -Format G): "
+	Write-Verbose "$(Get-Date -Format G): Script start         : $($Script:StartTime)"
+	Write-Verbose "$(Get-Date -Format G): "
+	Write-Verbose "$(Get-Date -Format G): "
 }
 
 Function AbortScript
 {
 	[gc]::collect() 
 	[gc]::WaitForPendingFinalizers()
-	Write-Verbose "$(Get-Date)  -Format G: Script has been aborted"
+	Write-Verbose "$(Get-Date -Format G): Script has been aborted"
 	Exit
 }
 
@@ -5090,7 +5090,7 @@ function ConvertFrom-Sddl-MBS
 Function SendEmail
 {
 	Param([array]$Attachments)
-	Write-Verbose "$(Get-Date)  -Format G: Prepare to email"
+	Write-Verbose "$(Get-Date -Format G): Prepare to email"
 
 	$emailAttachment = $Attachments
 	$emailSubject = $Script:Title
@@ -5130,13 +5130,13 @@ $Script:Title is attached.
 		
 		If($?)
 		{
-			Write-Verbose "$(Get-Date)  -Format G: Email successfully sent using anonymous credentials"
+			Write-Verbose "$(Get-Date -Format G): Email successfully sent using anonymous credentials"
 		}
 		ElseIf(!$?)
 		{
 			$e = $error[0]
 
-			Write-Verbose "$(Get-Date)  -Format G: Email was not sent:"
+			Write-Verbose "$(Get-Date -Format G): Email was not sent:"
 			Write-Warning "$(Get-Date): Exception: $e.Exception" 
 		}
 	}
@@ -5144,7 +5144,7 @@ $Script:Title is attached.
 	{
 		If($UseSSL)
 		{
-			Write-Verbose "$(Get-Date)  -Format G: Trying to send email using current user's credentials with SSL"
+			Write-Verbose "$(Get-Date -Format G): Trying to send email using current user's credentials with SSL"
 			Send-MailMessage -Attachments $emailAttachment -Body $emailBody -BodyAsHtml -From $From `
 			-Port $SmtpPort -SmtpServer $SmtpServer -Subject $emailSubject -To $To `
 			-UseSSL *>$Null
@@ -5164,7 +5164,7 @@ $Script:Title is attached.
 			If($null -ne $e.Exception -and $e.Exception.ToString().Contains("5.7"))
 			{
 				#The server response was: 5.7.xx SMTP; Client was not authenticated to send anonymous mail during MAIL FROM
-				Write-Verbose "$(Get-Date)  -Format G: Current user's credentials failed. Ask for usable credentials."
+				Write-Verbose "$(Get-Date -Format G): Current user's credentials failed. Ask for usable credentials."
 
 				If($Dev)
 				{
@@ -5190,19 +5190,19 @@ $Script:Title is attached.
 
 				If($?)
 				{
-					Write-Verbose "$(Get-Date)  -Format G: Email successfully sent using new credentials"
+					Write-Verbose "$(Get-Date -Format G): Email successfully sent using new credentials"
 				}
 				ElseIf(!$?)
 				{
 					$e = $error[0]
 
-					Write-Verbose "$(Get-Date)  -Format G: Email was not sent:"
+					Write-Verbose "$(Get-Date -Format G): Email was not sent:"
 					Write-Warning "$(Get-Date): Exception: $e.Exception" 
 				}
 			}
 			Else
 			{
-				Write-Verbose "$(Get-Date)  -Format G: Email was not sent:"
+				Write-Verbose "$(Get-Date -Format G): Email was not sent:"
 				Write-Warning "$(Get-Date): Exception: $e.Exception" 
 			}
 		}
@@ -5217,19 +5217,19 @@ Function ElevatedSession
 
 	If($currentPrincipal.IsInRole( [Security.Principal.WindowsBuiltInRole]::Administrator ))
 	{
-		Write-Verbose "$(Get-Date)  -Format G: This is an elevated PowerShell session"
+		Write-Verbose "$(Get-Date -Format G): This is an elevated PowerShell session"
 		Return $True
 	}
 	Else
 	{
-		Write-Verbose "$(Get-Date)  -Format G: This is NOT an elevated PowerShell session"
+		Write-Verbose "$(Get-Date -Format G): This is NOT an elevated PowerShell session"
 		Return $False
 	}
 }
 
 Function CheckElevation
 {
-	Write-Verbose "$(Get-Date)  -Format G: Testing for elevated PowerShell session."
+	Write-Verbose "$(Get-Date -Format G): Testing for elevated PowerShell session."
 	#see if session is elevated
 	$Elevated = ElevatedSession
 	
@@ -5245,7 +5245,7 @@ Function CheckElevation
 		Rerun the script from an elevated PowerShell session. The script will now close.
 		`n`n
 		"
-		Write-Verbose "$(Get-Date)  -Format G: "
+		Write-Verbose "$(Get-Date -Format G): "
 		AbortScript
 	}
 }
@@ -5294,12 +5294,12 @@ Function ProcessScriptSetup
 #region script end
 Function ProcessScriptEnd
 {
-	Write-Verbose "$(Get-Date)  -Format G: Script has completed"
-	Write-Verbose "$(Get-Date)  -Format G: "
+	Write-Verbose "$(Get-Date -Format G): Script has completed"
+	Write-Verbose "$(Get-Date -Format G): "
 
 	#http://poshtips.com/measuring-elapsed-time-in-powershell/
-	Write-Verbose "$(Get-Date)  -Format G: Script started: $($Script:StartTime)"
-	Write-Verbose "$(Get-Date)  -Format G: Script ended: $(Get-Date)"
+	Write-Verbose "$(Get-Date -Format G): Script started: $($Script:StartTime)"
+	Write-Verbose "$(Get-Date -Format G): Script ended: $(Get-Date)"
 	$runtime = $(Get-Date) - $Script:StartTime
 	$Str = [string]::format("{0} days, {1} hours, {2} minutes, {3}.{4} seconds",
 		$runtime.Days,
@@ -5307,7 +5307,7 @@ Function ProcessScriptEnd
 		$runtime.Minutes,
 		$runtime.Seconds,
 		$runtime.Milliseconds)
-	Write-Verbose "$(Get-Date)  -Format G: Elapsed time: $($Str)"
+	Write-Verbose "$(Get-Date -Format G): Elapsed time: $($Str)"
 
 	If($Dev)
 	{
@@ -5399,11 +5399,11 @@ Function ProcessScriptEnd
 			try 
 			{
 				Stop-Transcript | Out-Null
-				Write-Verbose "$(Get-Date)  -Format G: $Script:LogPath is ready for use"
+				Write-Verbose "$(Get-Date -Format G): $Script:LogPath is ready for use"
 			} 
 			catch 
 			{
-				Write-Verbose "$(Get-Date)  -Format G: Transcript/log stop failed"
+				Write-Verbose "$(Get-Date -Format G): Transcript/log stop failed"
 			}
 		}
 	}
@@ -5415,7 +5415,7 @@ Function ProcessScriptEnd
 #region process root certificate
 Function ProcessRootCA
 {
-	Write-Verbose "$(Get-Date)  -Format G: Retrieving Root Certificate Information"
+	Write-Verbose "$(Get-Date -Format G): Retrieving Root Certificate Information"
 	$CA = (Get-FasMsCertificateAuthority -EA 0 | Where-Object {$_.IsDefault -eq $True}).Address
 	
 	If(!($?) -or ($Null -eq $CA))
@@ -5429,7 +5429,7 @@ Function ProcessRootCA
 		The script will now close.
 		`n`n
 		"
-		Write-Verbose "$(Get-Date)  -Format G: "
+		Write-Verbose "$(Get-Date -Format G): "
 		
 		If(($MSWORD -or $PDF) -and ($Script:CoverPagesExist))
 		{
@@ -5441,7 +5441,7 @@ Function ProcessRootCA
 		AbortScript
 	}
 	
-	Write-Verbose "$(Get-Date)  -Format G: Retrieving data for $($CA) in cert:\CurrentUser\CA"
+	Write-Verbose "$(Get-Date -Format G): Retrieving data for $($CA) in cert:\CurrentUser\CA"
 	$TmpArray = $CA.Split("\")
 	$CAServer = $TmpARray[0]
 	$CAName = $TmpArray[1]
@@ -5516,7 +5516,7 @@ Function OutputRootCA
 {
 	Param([object] $RCAObj)
 	
-	Write-Verbose "$(Get-Date)  -Format G: Add Root Certificate Information"
+	Write-Verbose "$(Get-Date -Format G): Add Root Certificate Information"
 	If($MSWord -or $PDF)
 	{
 		$Script:Selection.InsertNewPage()
@@ -5594,7 +5594,7 @@ Function OutputRootCA
 #region process certificate authorities
 Function ProcessCAs
 {
-	Write-Verbose "$(Get-Date)  -Format G: Retrieving Certificate Authorities Information"
+	Write-Verbose "$(Get-Date -Format G): Retrieving Certificate Authorities Information"
 	$FASCAs = New-Object System.Collections.ArrayList
 
 	$CAs = Get-FasMsCertificateAuthority -EA 0
@@ -5664,7 +5664,7 @@ Function ProcessCAs
 Function OutputCAs
 {
 	Param([array] $FASCAs)
-	Write-Verbose "$(Get-Date)  -Format G: Output Certificate Authorities Information"
+	Write-Verbose "$(Get-Date -Format G): Output Certificate Authorities Information"
 	
 	If($FASCAs -like "*error*" -or $FASCAs -like "*warning*")
 	{
@@ -5872,7 +5872,7 @@ Function OutputCAs
 #region process FAS server
 Function ProcessFASServer
 {
-	Write-Verbose "$(Get-Date)  -Format G: Retrieving FAS server Information"
+	Write-Verbose "$(Get-Date -Format G): Retrieving FAS server Information"
 	$results = Get-FasServer -EA 0
 	
 	If(!$? -or $null -eq $results)
@@ -5886,7 +5886,7 @@ Function ProcessFASServer
 		The script cannot run without FAS server data. The script will now close.
 		`n`n
 		"
-		Write-Verbose "$(Get-Date)  -Format G: "
+		Write-Verbose "$(Get-Date -Format G): "
 		If(($MSWORD -or $PDF) -and ($Script:CoverPagesExist))
 		{
 			$AbstractTitle = "Citrix FAS Inventory"
@@ -5935,7 +5935,7 @@ Function OutputFASServer
 {
 	Param([array]$FASServers)
 	
-	Write-Verbose "$(Get-Date)  -Format G: Output FAS server Information"
+	Write-Verbose "$(Get-Date -Format G): Output FAS server Information"
 	$FASServers = $FASServers | Sort-Object Address
 	
 	If($MSWord -or $PDF)
@@ -6253,7 +6253,7 @@ Function ProcessPrivateKeyPoolInfo
 #region process FAS rules
 Function ProcessFASRules
 {
-	Write-Verbose "$(Get-Date)  -Format G: Retrieving FAS rules Information"
+	Write-Verbose "$(Get-Date -Format G): Retrieving FAS rules Information"
 	$results = Get-FasRule -EA 0
 	
 	If(!($?))
@@ -6356,7 +6356,7 @@ Function OutputFASRules
 {
 	Param([array]$FASRules)
 	
-	Write-Verbose "$(Get-Date)  -Format G: Output FAS Rules Information"
+	Write-Verbose "$(Get-Date -Format G): Output FAS Rules Information"
 	
 	If($FASRules -like "*error*" -or $FASRules -like "*warning*")
 	{
@@ -6643,7 +6643,7 @@ Function OutputFASRules
 #region Process User Certificates
 Function ProcessUserCertificates
 {
-	Write-Verbose "$(Get-Date)  -Format G: Retrieving User Certificate Information"
+	Write-Verbose "$(Get-Date -Format G): Retrieving User Certificate Information"
 	$results = Get-FasUserCertificate -MaximumRecordCount $LimitUserCertificates -EA 0
 	
 	If(!($?))
@@ -6683,7 +6683,7 @@ Function OutputUserCertificates
 {
 	Param([array]$UserCerts)
 	
-	Write-Verbose "$(Get-Date)  -Format G: Output User Certificate Information"
+	Write-Verbose "$(Get-Date -Format G): Output User Certificate Information"
 	
 	If($UserCerts -like "*error*" -or $UserCerts -like "*warning*")
 	{
@@ -6827,7 +6827,7 @@ ProcessUserCertificates
 #endregion
 
 #region finish script
-Write-Verbose "$(Get-Date)  -Format G: Finishing up document"
+Write-Verbose "$(Get-Date -Format G): Finishing up document"
 #end of document processing
 
 If(($MSWORD -or $PDF) -and ($Script:CoverPagesExist))

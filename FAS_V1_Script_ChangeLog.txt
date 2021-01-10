@@ -3,7 +3,7 @@
 #http://www.CarlWebster.com
 # Created on March 31, 2019
 
-#Version 1.12
+#Version 1.12 10-Jan-2010
 #	Added to the Computer Hardware section, the server's Power Plan
 #	Changed all Write-Verbose statements from Get-Date to Get-Date -Format G as requested by Guy Leech
 #	Reordered parameters in an order recommended by Guy Leech
