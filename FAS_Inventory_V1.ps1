@@ -462,7 +462,7 @@
 	NAME: FAS_Inventory_V1.ps1
 	VERSION: 1.13
 	AUTHOR: Carl Webster and Michael B. Smith
-	LASTEDIT: September 2, 2021
+	LASTEDIT: September 11, 2021
 #>
 
 #endregion
@@ -576,7 +576,7 @@ Param(
 #http://www.CarlWebster.com
 #Created on March 31, 2019
 #
-#Version 1.13 2-Sep-2021
+#Version 1.13 11-Sep-2021
 #	Add array error checking for non-empty arrays before attempting to create the Word table for most Word tables
 #	Add Function OutputReportFooter
 #	Add Parameter ReportFooter
@@ -591,6 +591,8 @@ Param(
 #				Ran from the folder <Folder Name>
 #	Update Functions SaveandCloseTextDocument and SaveandCloseHTMLDocument to add a "Report Complete" line
 #	Update Functions ShowScriptOptions and ProcessScriptEnd to add $ReportFooter
+#	Updated the help text
+#	Updated the ReadMe file
 #
 #Version 1.12
 #	Added to the Computer Hardware section, the server's Power Plan
@@ -635,7 +637,7 @@ $PSDefaultParameterValues = @{"*:Verbose"=$True}
 $Script:emailCredentials 	= $Null
 $script:MyVersion         = '1.13'
 $Script:ScriptName        = "FAS_Inventory_V1.ps1"
-$tmpdate                  = [datetime] "09/02/2021"
+$tmpdate                  = [datetime] "09/11/2021"
 $Script:ReleaseDate       = $tmpdate.ToUniversalTime().ToShortDateString()
 
 function wv

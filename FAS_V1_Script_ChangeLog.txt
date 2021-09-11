@@ -3,7 +3,7 @@
 #http://www.CarlWebster.com
 # Created on March 31, 2019
 
-#Version 1.13 2-Sep-2021
+#Version 1.13 11-Sep-2021
 #	Add array error checking for non-empty arrays before attempting to create the Word table for most Word tables
 #	Add Function OutputReportFooter
 #	Add Parameter ReportFooter
@@ -18,6 +18,8 @@
 #				Ran from the folder <Folder Name>
 #	Update Functions SaveandCloseTextDocument and SaveandCloseHTMLDocument to add a "Report Complete" line
 #	Update Functions ShowScriptOptions and ProcessScriptEnd to add $ReportFooter
+#	Updated the help text
+#	Updated the ReadMe file
 
 #Version 1.12 10-Jan-2010
 #	Added to the Computer Hardware section, the server's Power Plan
