@@ -580,13 +580,6 @@ Param(
 #	Change all Get-WMIObject to Get-CIMInstance
 #	General code cleanup
 #	In Function OutputNicItem, fixed several issues with DHCP data
-#	Updated the following functions to the latest version:
-#		AddWordTable
-#		Check-LoadedModule
-#		Check-NeededPSSnapins
-#		SetWordCellFormat
-#		UpdateDocumentProperties
-#		validStateProp
 #	Updated the help text
 #	Updated the ReadMe file
 #
@@ -1956,7 +1949,7 @@ Function OutputNicItem
 	If($nic.dhcpenabled)
 	{
 		$DHCPLeaseObtainedDate = $nic.dhcpleaseobtained.ToLocalTime()
-		$DHCPLeaseExpiresDate = $nic.dhcpleaseexpires.ToLocalTIme()
+		$DHCPLeaseExpiresDate = (Get-Date).AddSeconds([UInt32]::MaxValue).ToLocalTime()
 	}
 		
 	If($MSWORD -or $PDF)
